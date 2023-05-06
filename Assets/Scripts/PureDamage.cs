@@ -2,15 +2,19 @@
 {
     private int _amount;
 
-    public int Amount => _amount;
-    
+    public int Amount
+    {
+        get => _amount;
+        set => _amount = value;
+    }
+
     public PureDamage(int amount)
     {
         _amount = amount * -1;
     }
     
-    public void ApplyDamage(IDamagable damagable)
+    public void ApplyDamage(IDamageable damageable)
     {
-        damagable.Health.ChangeCurrentHp(_amount);
+        damageable.Health.ChangeCurrentHp(_amount);
     }
 }

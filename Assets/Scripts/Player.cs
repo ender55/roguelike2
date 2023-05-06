@@ -1,22 +1,22 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Player : MonoBehaviour, IMovable, IDamagable
+public class Player : MonoBehaviour, IMovable, IDamageable
 {
-    private IMovement movement;
     [SerializeField] private Health health;
     [SerializeField] private PhysicalProtection physicalProtection;
+    [SerializeField] private Movement movement;
+    
     private InputController _inputController;
 
     public Health Health => health;
     public PhysicalProtection PhysicalProtection => physicalProtection;
-    public IMovement Movement => movement;
+    public Movement Movement => movement;
 
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
-        movement = new DefaultMovement(gameObject.GetComponent<Rigidbody2D>());
-        physicalProtection.ProtectionValue = physicalProtection.ProtectionValue;
+        movement.Init(gameObject.GetComponent<Rigidbody2D>());
+        physicalProtection.Init();
     }
 
     private void OnEnable()

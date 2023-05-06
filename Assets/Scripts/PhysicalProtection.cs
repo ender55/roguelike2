@@ -20,4 +20,9 @@ public class PhysicalProtection
     public float ProtectionMultiplier => _protectionMultiplier;
 
     public event Action OnProtectionValueChange;
+
+    public void Init()
+    {
+        _protectionMultiplier = 1 - (float)protectionValue / (protectionValue + 20);
+    }
 }

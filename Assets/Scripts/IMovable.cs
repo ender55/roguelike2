@@ -1,6 +1,4 @@
-﻿using System;
-
-public interface IMovable
+﻿public interface IMovable
 {
-     public IMovement Movement { get; }
+     public Movement Movement { get; }
 }

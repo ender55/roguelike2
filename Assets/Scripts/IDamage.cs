@@ -1,5 +1,5 @@
 ﻿public interface IDamage
 {
-    public int Amount { get; }
-    public void ApplyDamage(IDamagable damagable);
+    public int Amount { get; set; }
+    public void ApplyDamage(IDamageable damageable);
 }
