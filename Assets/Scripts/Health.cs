@@ -14,7 +14,6 @@ public class Health
     public event Action OnMaxHpChange;
     public event Action OnZeroHp;
     
-
     public void ChangeCurrentHp(int value)
     {
         int newCurrentHp = currentHp + value;
@@ -45,7 +44,7 @@ public class Health
         OnMaxHpChange?.Invoke();
     }
 
-    public void SetCurrentHp(int value)
+    private void SetCurrentHp(int value)
     {
         int newCurrentHp = value;
         if(newCurrentHp <= 0)
@@ -64,7 +63,7 @@ public class Health
         OnHpChange?.Invoke();
     }
     
-    public void SetMaxHp(int value)
+    private void SetMaxHp(int value)
     {
         int newMaxHp = value;
         if(newMaxHp < currentHp)

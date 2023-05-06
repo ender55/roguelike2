@@ -1,32 +1,31 @@
 ﻿using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IMovable
+public class Player : MonoBehaviour, IMovable, IDamagable
 {
-    [SerializeField] private float moveSpeed;
-    private IMovement _movement; 
+    private IMovement movement;
+    [SerializeField] private Health health;
+    [SerializeField] private PhysicalProtection physicalProtection;
     private InputController _inputController;
 
-    public IMovement Movement => _movement;
+    public Health Health => health;
+    public PhysicalProtection PhysicalProtection => physicalProtection;
+    public IMovement Movement => movement;
 
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
-        _movement = new DefaultMovement(gameObject.GetComponent<Rigidbody2D>());
+        movement = new DefaultMovement(gameObject.GetComponent<Rigidbody2D>());
+        physicalProtection.ProtectionValue = physicalProtection.ProtectionValue;
     }
 
     private void OnEnable()
     {
-        _inputController.OnMove += Move;
+        _inputController.OnMove += movement.Move;
     }
 
     private void OnDisable()
     {
-        _inputController.OnMove -= Move;
-    }
-
-    private void Move(Vector2 moveDirection)
-    {
-        _movement.Move(moveDirection * moveSpeed * 10);
+        _inputController.OnMove -= movement.Move;
     }
 }
