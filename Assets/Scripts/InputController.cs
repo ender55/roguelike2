@@ -7,6 +7,7 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     private GameInput _gameInput;
     
     public event Action<Vector2> OnMove;
+    public event Action<Vector2> OnLook;
 
     private void Awake()
     {
@@ -44,5 +45,13 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     void GameInput.IGameplayActions.OnMove(InputAction.CallbackContext context)
     {
         OnMove?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    void GameInput.IGameplayActions.OnLook(InputAction.CallbackContext context)
+    {
+        if (Camera.main != null)
+        {
+            OnLook?.Invoke(Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>()));
+        }
     }
 }
