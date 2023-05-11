@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Player : MonoBehaviour, IMovable, IDamageable, IDirectionable
 {
@@ -14,11 +15,13 @@ public class Player : MonoBehaviour, IMovable, IDamageable, IDirectionable
     public Movement Movement => movement;
     public Direction Direction => direction;
 
+    [SerializeReference] public IWeapon Weapon;
+    [SerializeField] private Projectile projectile;
+
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
-        movement.Init(gameObject.GetComponent<Rigidbody2D>());
-        physicalProtection.Init();
+        physicalProtection.Init(); //todo: убрать init и просто сделать метод CalculateProtection
     }
 
     private void OnEnable()
@@ -36,5 +39,18 @@ public class Player : MonoBehaviour, IMovable, IDamageable, IDirectionable
     private void LookAt(Vector2 target)
     {
         direction.LookAt(gameObject.transform, target);
+    }
+
+    private void Update()
+    {
+        Shoot();
+    }
+
+    private void Shoot() //todo: remove
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Instantiate(projectile, transform.position, Quaternion.LookRotation(Vector3.forward, Direction.value));
+        }
     }
 }

@@ -4,9 +4,7 @@ using UnityEngine;
 [Serializable]
 public class Direction
 {
-    [SerializeField] private Vector2 value;
-
-    public Vector2 Value => value;
+    [ReadOnly] public Vector2 value;
 
     public void LookAt(Transform objectTransform, Vector2 target)
     {

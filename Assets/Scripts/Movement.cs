@@ -5,7 +5,7 @@ using UnityEngine;
 public class Movement
 {
     [SerializeField] private int moveSpeed;
-    private Rigidbody2D _rigidbody2D;
+    [SerializeField] private Rigidbody2D rigidbody2D;
 
     public int MoveSpeed
     {
@@ -19,13 +19,8 @@ public class Movement
 
     public event Action OnMoveSpeedChange;
 
-    public void Init(Rigidbody2D rigidbody2D)
-    {
-        _rigidbody2D = rigidbody2D;
-    }
-
     public virtual void Move(Vector2 moveDirection)
     {
-        _rigidbody2D.velocity = moveDirection * MoveSpeed * Time.fixedDeltaTime;
+        rigidbody2D.velocity = moveDirection * (MoveSpeed * Time.fixedDeltaTime);
     }
 }
