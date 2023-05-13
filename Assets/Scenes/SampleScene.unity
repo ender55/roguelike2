@@ -329,10 +329,12 @@ MonoBehaviour:
     protectionValue: 10
   movement:
     moveSpeed: 200
+    rigidbody2D: {fileID: 715282695}
   direction:
     value: {x: 0, y: 0}
   Weapon:
     rid: -2
+  projectile: {fileID: 5034615070507311807, guid: c172bdadb14908a46bd0cd103d141ef9, type: 3}
   references:
     version: 2
     RefIds:

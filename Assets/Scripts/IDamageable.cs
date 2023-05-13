@@ -1,5 +1,8 @@
-﻿public interface IDamageable
+﻿using AYellowpaper.SerializedCollections;
+
+public interface IDamageable
 {
     public Health Health { get; }
-    public PhysicalProtection PhysicalProtection { get; }
+    public SerializedDictionary<DamageType, int> DamageResistances { get; }
+    public void TakeDamage(int damageValue, DamageType damageType);
 }

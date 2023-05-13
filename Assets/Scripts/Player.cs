@@ -1,19 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Player : MonoBehaviour, IMovable, IDamageable, IDirectionable
+public class Player : Unit
 {
-    [SerializeField] private Health health;
-    [SerializeField] private PhysicalProtection physicalProtection;
-    [SerializeField] private Movement movement;
-    [SerializeField] private Direction direction;
-    
     private InputController _inputController;
-
-    public Health Health => health;
-    public PhysicalProtection PhysicalProtection => physicalProtection;
-    public Movement Movement => movement;
-    public Direction Direction => direction;
 
     [SerializeReference] public IWeapon Weapon;
     [SerializeField] private Projectile projectile;
@@ -21,7 +10,6 @@ public class Player : MonoBehaviour, IMovable, IDamageable, IDirectionable
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
-        physicalProtection.Init(); //todo: убрать init и просто сделать метод CalculateProtection
     }
 
     private void OnEnable()
@@ -39,9 +27,10 @@ public class Player : MonoBehaviour, IMovable, IDamageable, IDirectionable
     private void LookAt(Vector2 target)
     {
         direction.LookAt(gameObject.transform, target);
+        transform.rotation = Quaternion.FromToRotation(Vector2.right, direction.value);
     }
 
-    private void Update()
+    private void Update() //todo: remove
     {
         Shoot();
     }
