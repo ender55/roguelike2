@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour, IMovable, IDirectionable
 
     private void Awake()
     {
-        direction.value = transform.up;
+        direction.value = transform.right;
         Destroy(gameObject, lifeTime);
     }
 

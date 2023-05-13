@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class RangeWeapon : MonoBehaviour, IWeapon
 {
-    [SerializeField] private IDamage damage = new PureDamage(5);
+    [SerializeField] private int damageValue;
+    [SerializeField] private DamageType damageType;
     [SerializeField] private Projectile projectile;
     [SerializeField] private Transform attackPoint;
 
@@ -14,7 +15,7 @@ public class RangeWeapon : MonoBehaviour, IWeapon
     public virtual void Attack()
     {
         OnAttack?.Invoke();
-        var projectileInstance = Instantiate(projectile, attackPoint);
+        var projectileInstance = Instantiate(projectile, attackPoint.position, gameObject.transform.rotation);
         projectileInstance.OnHit += ApplyDamage;
     }
 
@@ -25,7 +26,7 @@ public class RangeWeapon : MonoBehaviour, IWeapon
 
     private void ApplyDamage(IDamageable damageable)
     {
-        damage.ApplyDamage(damageable);
+        damageable.TakeDamage(damageValue, damageType);
         OnHit?.Invoke(damageable);
     }
 }

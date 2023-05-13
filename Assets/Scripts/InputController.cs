@@ -8,6 +8,7 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     
     public event Action<Vector2> OnMove;
     public event Action<Vector2> OnLook;
+    public event Action OnAttack;
 
     private void Awake()
     {
@@ -53,5 +54,10 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
         {
             OnLook?.Invoke(Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>()));
         }
+    }
+
+    void GameInput.IGameplayActions.OnAttack(InputAction.CallbackContext context)
+    {
+        OnAttack?.Invoke();
     }
 }
