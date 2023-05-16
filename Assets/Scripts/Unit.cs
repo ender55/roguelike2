@@ -1,7 +1,7 @@
 ﻿using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-public abstract class Unit : MonoBehaviour, IMovable, IDamageable, IDirectionable
+public class Unit : MonoBehaviour, IMovable, IDamageable, IDirectionable
 {
     [SerializeField] protected Health health;
     [SerializeField] protected SerializedDictionary<DamageType, int> damageResistances;
@@ -13,15 +13,21 @@ public abstract class Unit : MonoBehaviour, IMovable, IDamageable, IDirectionabl
     public Movement Movement => movement;
     public Direction Direction => direction;
     
-    public void TakeDamage(int damageValue, DamageType damageType) //todo: move to Unit class
+    public void TakeDamage(Damage damage)
     {
-        if (DamageResistances.ContainsKey(damageType))
+        foreach (var damageValue in damage.DamageValues)
         {
-            health.ChangeCurrentHp(-damageValue * (1 - DamageResistances[damageType] / 100));
+            var resistance = GetResistance(damageValue.Key);
+            health.ChangeCurrentHp(-damageValue.Value * (1 - resistance/(50 + resistance)));
         }
-        else
+    }
+
+    private int GetResistance(DamageType damageType)
+    {
+        if (DamageResistances.TryGetValue(damageType, out var value))
         {
-            health.ChangeCurrentHp(-damageValue);
+            return value;
         }
+        return 0;
     }
 }

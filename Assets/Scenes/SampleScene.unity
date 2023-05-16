@@ -325,21 +325,15 @@ MonoBehaviour:
   health:
     currentHp: 100
     maxHp: 100
-  physicalProtection:
-    protectionValue: 10
+  damageResistances:
+    _serializedList: []
   movement:
     moveSpeed: 200
     rigidbody2D: {fileID: 715282695}
   direction:
     value: {x: 0, y: 0}
-  Weapon:
-    rid: -2
-  projectile: {fileID: 5034615070507311807, guid: c172bdadb14908a46bd0cd103d141ef9, type: 3}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+  weapon: {fileID: 8347042881518828724, guid: ba4b1a98c2fc68d45b1633aba9922c9d, type: 3}
+  weaponSlot: {fileID: 1634886316}
 --- !u!50 &715282695
 Rigidbody2D:
   serializedVersion: 4
@@ -360,7 +354,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &715282696
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -390,7 +384,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1292431689}
-  - {fileID: 1569725350}
+  - {fileID: 1634886316}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -511,7 +505,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1569725349
+--- !u!1 &1634886315
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -519,21 +513,21 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1569725350}
+  - component: {fileID: 1634886316}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: WeaponSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1569725350
+--- !u!4 &1634886316
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1569725349}
+  m_GameObject: {fileID: 1634886315}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}

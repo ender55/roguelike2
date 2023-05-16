@@ -5,12 +5,14 @@ public class Player : Unit
     private InputController _inputController;
     
     [SerializeField] private GameObject weapon;
+    [SerializeField] private Transform weaponSlot;
 
     public IWeapon Weapon { get; set; }
 
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
+        weapon = Instantiate(weapon, weaponSlot);
         Weapon = weapon.GetComponent(typeof(IWeapon)) as IWeapon;
     }
 

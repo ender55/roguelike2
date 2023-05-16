@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class RangeWeapon : MonoBehaviour, IWeapon
 {
-    [SerializeField] private int damageValue;
-    [SerializeField] private DamageType damageType;
     [SerializeField] private Projectile projectile;
     [SerializeField] private Transform attackPoint;
+    [SerializeField] private RangeWeaponStats weaponStats;
+
+    public RangeWeaponStats WeaponStats => weaponStats;
 
     public event Action OnAttack;
     public event Action OnAlternativeAttack;
@@ -26,7 +27,8 @@ public class RangeWeapon : MonoBehaviour, IWeapon
 
     private void ApplyDamage(IDamageable damageable)
     {
-        damageable.TakeDamage(damageValue, damageType);
+        Debug.Log("damaged");
+        damageable.TakeDamage(weaponStats.BaseDamage);
         OnHit?.Invoke(damageable);
     }
 }
