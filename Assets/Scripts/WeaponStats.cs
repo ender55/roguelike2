@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Serializable]
-public abstract class WeaponStats
+public class WeaponStats
 {
     //stats
     [SerializeField] private Damage baseDamage;
@@ -24,18 +24,23 @@ public abstract class WeaponStats
     public int CriticalDamageChance => criticalDamageChance;
     public float CriticalDamageMultiplier => criticalDamageMultiplier;
     public float AttackRange => attackRange;
-    public float DamageModifier => damageModifier;
+    public float DamageModifier
+    {
+        get => damageModifier;
+        set => damageModifier = value;
+    }
+
     public float AttackSpeedModifier => attackSpeedModifier;
     public float EnergyConsumptionModifier => energyConsumptionModifier;
 }
 
 [Serializable]
-public class MeleeWeaponStats : WeaponStats
+public class MeleeWeaponStats
 {
 }
 
 [Serializable]
-public class RangeWeaponStats : WeaponStats
+public class RangeWeaponStats
 {
     [SerializeField] private int amountOfProjectiles;
     [SerializeField] private float projectileSpeed;

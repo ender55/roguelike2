@@ -1,26 +1,26 @@
 ﻿using System;
 using UnityEngine;
 
-public class RangeWeapon : MonoBehaviour, IWeapon
+public class RangeWeapon : Weapon
 {
     [SerializeField] private Projectile projectile;
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private RangeWeaponStats weaponStats;
+    [SerializeField] private RangeWeaponStats rangeWeaponStats;
 
-    public RangeWeaponStats WeaponStats => weaponStats;
+    public RangeWeaponStats RangeWeaponStats => rangeWeaponStats;
 
     public event Action OnAttack;
     public event Action OnAlternativeAttack;
     public event Action<IDamageable> OnHit; 
 
-    public virtual void Attack()
+    public override void Attack()
     {
         OnAttack?.Invoke();
         var projectileInstance = Instantiate(projectile, attackPoint.position, gameObject.transform.rotation);
         projectileInstance.OnHit += ApplyDamage;
     }
 
-    public virtual void AlternativeAttack()
+    public override void AlternativeAttack()
     {
         OnAlternativeAttack?.Invoke();
     }
@@ -30,5 +30,17 @@ public class RangeWeapon : MonoBehaviour, IWeapon
         Debug.Log("damaged");
         damageable.TakeDamage(weaponStats.BaseDamage);
         OnHit?.Invoke(damageable);
+    }
+    
+    public void AddUpgrade(RangeWeaponUpgrade upgrade)
+    {
+        upgrades.Add(upgrade);
+        upgrade.Equip(this);
+    }
+    
+    public void RemoveUpgrade(RangeWeaponUpgrade upgrade)
+    {
+        upgrade.Unequip();
+        upgrades.Remove(upgrade);
     }
 }

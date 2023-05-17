@@ -7,13 +7,13 @@ public class Player : Unit
     [SerializeField] private GameObject weapon;
     [SerializeField] private Transform weaponSlot;
 
-    public IWeapon Weapon { get; set; }
+    public Weapon Weapon { get; set; }
 
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
         weapon = Instantiate(weapon, weaponSlot);
-        Weapon = weapon.GetComponent(typeof(IWeapon)) as IWeapon;
+        Weapon = weapon.GetComponent(typeof(Weapon)) as Weapon;
     }
 
     private void OnEnable()
