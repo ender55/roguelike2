@@ -3,9 +3,25 @@ using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
 [Serializable]
-public struct Damage
+public class Damage
 {
-    [SerializeField] private SerializedDictionary<DamageType, int> damage;
+    [SerializeField] private DamageType damageType;
+    [SerializeField] private int damageValue;
 
-    public SerializedDictionary<DamageType, int> DamageValues => damage;
+    public DamageType DamageType
+    {
+        get => damageType;
+        set => damageType = value;
+    }
+
+    public int DamageValue
+    {
+        get => damageValue;
+        set => damageValue = value;
+    }
+
+    public void ApplyDamage(IDamageable damageable)
+    {
+
+    }
 }

@@ -1,8 +1,7 @@
 ﻿using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour, IMovable, IDirectionable
+public class Projectile : MonoBehaviour, IMovable, IDirectable
 {
     [SerializeField] private Movement movement;
     [SerializeField] private Direction direction;
@@ -29,7 +28,6 @@ public class Projectile : MonoBehaviour, IMovable, IDirectionable
         if (col.gameObject.TryGetComponent(out IDamageable damageable))
         {
             OnHit?.Invoke(damageable);
-            Debug.Log("Hit");
             Destroy(gameObject);
         }
     }
