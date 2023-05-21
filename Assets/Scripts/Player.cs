@@ -7,7 +7,11 @@ public class Player : Unit
     [SerializeField] private GameObject weapon;
     [SerializeField] private Transform weaponSlot;
 
-    public Weapon Weapon { get; set; }
+    [SerializeField] private UpgradeInventory upgradeInventory = new UpgradeInventory(10);
+
+    public UpgradeInventory UpgradeInventory => upgradeInventory;
+
+    public Weapon Weapon { get; set; } //todo: find out if we need it
 
     private void Awake()
     {

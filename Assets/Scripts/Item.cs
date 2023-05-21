@@ -2,17 +2,22 @@
 
 public abstract class Item : MonoBehaviour
 {
-    protected virtual void Collect(ICollector collector)
-    {
-        
-    }
+    [SerializeField] private Sprite icon;
 
-    protected virtual void OnTriggerEnter2D(Collider2D col) //todo: remove virtual when upgrades will be tested
+    public Sprite Icon => icon;
+    
+    protected abstract void Collect(Player player);
+
+    protected void OnTriggerEnter2D(Collider2D col) //todo: remove virtual when upgrades will be tested
     {
-        if (col.gameObject.TryGetComponent(out ICollector collector))
+        if (col.gameObject.TryGetComponent(out Player player))
         {
-            Collect(collector);
-            Destroy(gameObject);
+            Collect(player);
         }
     }
+
+    //public Item Clone()
+    //{
+    //    
+    //}
 }

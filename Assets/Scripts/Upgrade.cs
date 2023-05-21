@@ -45,18 +45,12 @@ public abstract class Upgrade : Item
         
     }
 
-    protected override void Collect(ICollector collector)
+    protected override void Collect(Player player)
     {
-        //var sameItemAmount = 0;
-        //var type = this.GetType();
-        //foreach (var item in collector.Items)
-        //{
-        //    if(item.GetType() == type)
-        //    {
-        //        
-        //    }
-        //}
-        collector.Items.Add(this);
+        if (player.UpgradeInventory.TryAddItem(this))
+        {
+            //Destroy(gameObject, 5f); //todo: rework item collecting system
+        }
     }
 
     public abstract void Activate();
