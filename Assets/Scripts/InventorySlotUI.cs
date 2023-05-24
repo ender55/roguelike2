@@ -3,11 +3,11 @@ using UnityEngine.EventSystems;
 
 public class InventorySlotUI : MonoBehaviour, IDropHandler
 {
-    [SerializeField] private ItemUI itemUI;
+    [SerializeField] private InventoryItemUI itemUI;
 
     private InventoryUI _inventoryUI;
     
-    public InventorySlot Slot { get; private set; }
+    public InventorySlot Slot { get; private set; } //make private if need
 
     private void Awake()
     {
@@ -33,9 +33,9 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
         Slot.OnSlotChanged += Refresh;
     }
     
-    public virtual void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData)
     {
-        var otherItemUI = eventData.pointerDrag.GetComponent<ItemUI>();
+        var otherItemUI = eventData.pointerDrag.GetComponent<InventoryItemUI>();
         var otherSlotUI = otherItemUI.GetComponentInParent<InventorySlotUI>();
         var otherSlot = otherSlotUI.Slot;
         var inventory = _inventoryUI.Inventory;

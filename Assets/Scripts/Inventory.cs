@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Inventory
+public class Inventory //todo: add interface
 {
-    [SerializeField] private List<InventorySlot> slots;
-
-    public List<InventorySlot> Slots => slots; //todo: encapsulate it using method GetAllSlots()
+    [SerializeField] protected List<InventorySlot> slots;
 
     public int Capacity { get; set; }
 
@@ -21,7 +19,7 @@ public class Inventory
         }
     }
 
-    public virtual bool TryAddItem(Item item)
+    public virtual bool TryAddItem(IInventoryItem item)
     {
         foreach (var slot in slots)
         {
@@ -33,6 +31,11 @@ public class Inventory
         }
 
         return false;
+    }
+
+    public List<InventorySlot> GetInventorySlots()
+    {
+        return slots;
     }
 
     public void TransitFromSlotToSlot(InventorySlot fromSlot, InventorySlot toSlot) //todo: check if we try to put an item to the same slot

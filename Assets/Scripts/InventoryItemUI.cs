@@ -2,15 +2,15 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class InventoryItemUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler //todo: add method for dropping item
 {
-    [SerializeField] private Image imageIcon;  
+    [SerializeField] private Image imageIcon; //todo: remove 
     
     private CanvasGroup _canvasGroup;
     private Canvas _canvas;
     private RectTransform _rectTransform;
 
-    public Item Item { get; private set; }
+    public IInventoryItem Item { get; private set; }
 
     private void Start()
     {
@@ -37,7 +37,7 @@ public class ItemUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHa
         _canvasGroup.blocksRaycasts = true;
     }
     
-    public void Refresh(InventorySlot slot)
+    public void Refresh(InventorySlot slot) //todo: check method for correctness
     {
         if (slot.IsEmpty)
         {
@@ -46,7 +46,7 @@ public class ItemUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHa
         }
 
         Item = slot.Item;
-        imageIcon.sprite = Item.Icon;
+        imageIcon.sprite = Item.ItemInfo.ItemSprite;
         imageIcon.gameObject.SetActive(true);
     }
 }

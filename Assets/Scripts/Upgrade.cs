@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public abstract class Upgrade : Item
+public abstract class Upgrade : IInventoryItem
 {
     [SerializeField] protected UpgradeRarity upgradeRarity;
     [SerializeField] protected int currentLevel;
     [SerializeField] protected int maxLevel;
+
+    [SerializeField] protected Sprite sprite;
+
+    public Sprite Icon => sprite;
+    public IInventoryItemInfo ItemInfo { get; } //todo: add constructor
 
     public UpgradeRarity UpgradeRarity
     {
@@ -43,14 +47,6 @@ public abstract class Upgrade : Item
     protected virtual void LevelUp()
     {
         
-    }
-
-    protected override void Collect(Player player)
-    {
-        if (player.UpgradeInventory.TryAddItem(this))
-        {
-            //Destroy(gameObject, 5f); //todo: rework item collecting system
-        }
     }
 
     public abstract void Activate();

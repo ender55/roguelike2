@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Player : Unit
+public class Player : Unit, IUpgradeCollector
 {
     private InputController _inputController;
     
@@ -11,7 +11,7 @@ public class Player : Unit
 
     public UpgradeInventory UpgradeInventory => upgradeInventory;
 
-    public Weapon Weapon { get; set; } //todo: find out if we need it
+    public Weapon Weapon { get; set; } //todo: deal with it
 
     private void Awake()
     {

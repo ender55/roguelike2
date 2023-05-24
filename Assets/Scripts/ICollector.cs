@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public interface ICollector
+public interface ICollector //todo: remove
 {
-    public List<Item> Items { get; }
+    public List<IInventoryItem> Items { get; }
 }

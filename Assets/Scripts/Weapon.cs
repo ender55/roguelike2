@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public abstract class Weapon : Item, IUpgradable
+public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected List<Upgrade> upgrades;
     [SerializeField] protected WeaponStats weaponStats;
@@ -43,10 +43,5 @@ public abstract class Weapon : Item, IUpgradable
         tempDamage.DamageValue = (int)(tempDamage.DamageValue * weaponStats.DamageModifier);
         damageable.TakeDamage(tempDamage);
         OnHit?.Invoke(damageable);
-    }
-
-    protected override void Collect(Player player)
-    {
-        
     }
 }

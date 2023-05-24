@@ -7,7 +7,7 @@ public class UpgradeInventory : Inventory
     {
     }
     
-    public override bool TryAddItem(Item item)
+    public override bool TryAddItem(IInventoryItem item)
     {
         if (item is Upgrade)
         {

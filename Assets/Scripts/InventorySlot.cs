@@ -4,17 +4,15 @@ using UnityEngine;
 [Serializable]
 public class InventorySlot
 {
-     [SerializeField] private Item item;
-
-     public Item Item => item;
+     public IInventoryItem Item { get; private set; }
 
      public event Action OnSlotChanged;
 
-     public bool IsEmpty => item == null;
+     public bool IsEmpty => Item == null;
 
-     public void SetItem(Item item)
+     public void SetItem(IInventoryItem item) //todo: add checking for emptiness
      {
-          this.item = item;
+          Item = item;
           OnSlotChanged?.Invoke();
      }
 
@@ -22,7 +20,7 @@ public class InventorySlot
      {
           if (!IsEmpty)
           {
-               item = null; 
+               Item = null; 
                OnSlotChanged?.Invoke();
           }
      }
