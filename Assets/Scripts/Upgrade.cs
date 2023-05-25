@@ -2,15 +2,12 @@
 using UnityEngine;
 
 [Serializable]
-public abstract class Upgrade : IInventoryItem
+public abstract class Upgrade : InventoryItem
 {
     [SerializeField] protected UpgradeRarity upgradeRarity;
     [SerializeField] protected int currentLevel;
     [SerializeField] protected int maxLevel;
-
-    [SerializeField] protected Sprite sprite;
-
-    public Sprite Icon => sprite;
+    
     public IInventoryItemInfo ItemInfo { get; } //todo: add constructor
 
     public UpgradeRarity UpgradeRarity
@@ -29,9 +26,12 @@ public abstract class Upgrade : IInventoryItem
         get => currentLevel;
         set
         {
-            Deactivate();
-            currentLevel = value;
-            Activate();
+            if (value > 0 && value <= maxLevel)
+            {
+                Deactivate();
+                currentLevel = value;
+                Activate();
+            }
         }
     }
 

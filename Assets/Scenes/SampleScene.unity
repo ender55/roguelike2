@@ -426,17 +426,7 @@ MonoBehaviour:
   weapon: {fileID: 8347042881518828724, guid: ba4b1a98c2fc68d45b1633aba9922c9d, type: 3}
   weaponSlot: {fileID: 1634886316}
   upgradeInventory:
-    slots:
-    - item: {fileID: 0}
-    - item: {fileID: 0}
-    - item: {fileID: 0}
-    - item: {fileID: 0}
-    - item: {fileID: 0}
-    - item: {fileID: 0}
-    - item: {fileID: 0}
-    - item: {fileID: 0}
-    - item: {fileID: 0}
-    - item: {fileID: 0}
+    slots: []
 --- !u!50 &715282695
 Rigidbody2D:
   serializedVersion: 4
@@ -1237,6 +1227,7 @@ MonoBehaviour:
   upgradeRarity: 0
   currentLevel: 1
   maxLevel: 5
+  currentWeapon: {fileID: 0}
   damageModifierByRarity:
     _serializedList:
     - Key: 0
@@ -1435,7 +1426,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 70, y: 70}
-  m_Spacing: {x: 15, y: 0}
+  m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &1522554221

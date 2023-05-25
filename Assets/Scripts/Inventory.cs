@@ -19,7 +19,7 @@ public class Inventory //todo: add interface
         }
     }
 
-    public virtual bool TryAddItem(IInventoryItem item)
+    public virtual bool TryAddItem(InventoryItem item)
     {
         foreach (var slot in slots)
         {

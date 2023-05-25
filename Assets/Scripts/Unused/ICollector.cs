@@ -2,5 +2,5 @@
 
 public interface ICollector //todo: remove
 {
-    public List<IInventoryItem> Items { get; }
+    public List<InventoryItem> Items { get; }
 }

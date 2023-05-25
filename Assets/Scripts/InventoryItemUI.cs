@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryItemUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler //todo: add method for dropping item
 {
-    [SerializeField] private Image imageIcon; //todo: remove 
+    [SerializeField] private Image imageIcon;
     
     private CanvasGroup _canvasGroup;
     private Canvas _canvas;
     private RectTransform _rectTransform;
-
-    public IInventoryItem Item { get; private set; }
+    
+    public InventoryItem Item { get; private set; }
+    public event Action OnItemDropped;
 
     private void Start()
     {
@@ -48,5 +50,10 @@ public class InventoryItemUI : MonoBehaviour, IDragHandler, IBeginDragHandler, I
         Item = slot.Item;
         imageIcon.sprite = Item.ItemInfo.ItemSprite;
         imageIcon.gameObject.SetActive(true);
+    }
+
+    public void DropItem()
+    {
+        OnItemDropped?.Invoke();
     }
 }

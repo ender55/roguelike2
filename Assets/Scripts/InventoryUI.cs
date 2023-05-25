@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI : MonoBehaviour //todo: add list of all items
+public class InventoryUI : MonoBehaviour
 {
     [SerializeField] protected List<InventorySlotUI> slotsUI;
+    [SerializeField] private ItemSpawner itemSpawner;
+    
     public Inventory Inventory { get; protected set; }
+    public ItemSpawner ItemSpawner => itemSpawner;
 
     protected virtual void Awake()
     {

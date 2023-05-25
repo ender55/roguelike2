@@ -7,7 +7,7 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
 
     private InventoryUI _inventoryUI;
     
-    public InventorySlot Slot { get; private set; } //make private if need
+    public InventorySlot Slot { get; private set; } //todo: make private if need
 
     private void Awake()
     {
@@ -20,11 +20,14 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
         {
             Slot.OnSlotChanged += Refresh;
         }
+
+        itemUI.OnItemDropped += DropItem;
     }
 
     private void OnDisable()
     {
         Slot.OnSlotChanged -= Refresh;
+        itemUI.OnItemDropped -= DropItem;
     }
 
     public void SetSlot(InventorySlot slot)
@@ -49,5 +52,11 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
         {
             itemUI.Refresh(Slot);
         }
+    }
+
+    private void DropItem()
+    {
+        _inventoryUI.ItemSpawner.SpawnItem(itemUI.Item);
+        Slot.Clear();
     }
 }

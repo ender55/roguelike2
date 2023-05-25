@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    [SerializeField] private IInventoryItem item;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private CircleCollider2D collider2D;
 
-    public IInventoryItem Item
+    public InventoryItem Item
     {
-        get => item;
+        get;
+        private set;
     }
 
-    public void SetItem(IInventoryItem item)
+    public void SetItem(InventoryItem item)
     {
-        this.item = item;
-        spriteRenderer.sprite = this.item.ItemInfo.ItemSprite;
+        Item = item;
+        spriteRenderer.sprite = Item.ItemInfo.ItemSprite;
     }
 
     private IEnumerator Start()
     {
-        spriteRenderer.sprite = item.ItemInfo.ItemSprite;
+        spriteRenderer.sprite = Item.ItemInfo.ItemSprite;
         collider2D.enabled = false;
         yield return new WaitForSeconds(2f);
         collider2D.enabled = true;

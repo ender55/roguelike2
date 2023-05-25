@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Player : Unit, IUpgradeCollector
 {
@@ -7,7 +8,7 @@ public class Player : Unit, IUpgradeCollector
     [SerializeField] private GameObject weapon;
     [SerializeField] private Transform weaponSlot;
 
-    [SerializeField] private UpgradeInventory upgradeInventory = new UpgradeInventory(10);
+    [SerializeField] private UpgradeInventory upgradeInventory;
 
     public UpgradeInventory UpgradeInventory => upgradeInventory;
 
@@ -16,6 +17,7 @@ public class Player : Unit, IUpgradeCollector
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
+        upgradeInventory = new UpgradeInventory(10);
         weapon = Instantiate(weapon, weaponSlot);
         Weapon = weapon.GetComponent(typeof(Weapon)) as Weapon;
     }
@@ -38,5 +40,17 @@ public class Player : Unit, IUpgradeCollector
     {
         direction.LookAt(gameObject.transform, target);
         transform.rotation = Quaternion.FromToRotation(Vector2.right, direction.value);
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.TryGetComponent(out PickupItem pickupItem))
+        {
+            if (pickupItem.Item is Upgrade)
+            {
+                upgradeInventory.TryAddItem(pickupItem.Item);
+                Destroy(pickupItem.gameObject);
+            }
+        }
     }
 }
