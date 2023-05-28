@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b300775d4c894e1e909f0a25fd4a0943, type: 3}
-  m_Name: AttackUpgradeInfo
+  m_Script: {fileID: 11500000, guid: e18efbe1816e4fc08a7142560eb8a58a, type: 3}
+  m_Name: WeaponData
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
+  baseDamage:
+    damageType: 0
+    damageValue: 10
+  attackSpeed: 50
+  damageModifier: 1
+  attackSpeedModifier: 1

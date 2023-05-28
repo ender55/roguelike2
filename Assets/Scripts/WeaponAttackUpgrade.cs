@@ -1,7 +1,7 @@
 ﻿using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SO/Items/Upgrades/Weapon Upgrades/Attack Upgrade", fileName = "AttackUpgrade")]
+[CreateAssetMenu(menuName = "SO/Item/Upgrade/Weapon Upgrade/Attack Upgrade", fileName = "AttackUpgrade")]
 public class WeaponAttackUpgrade : WeaponUpgrade
 {
     [SerializeField] private SerializedDictionary<UpgradeRarity, float> damageModifierByRarity;

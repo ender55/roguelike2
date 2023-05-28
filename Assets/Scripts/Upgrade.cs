@@ -7,8 +7,6 @@ public abstract class Upgrade : InventoryItem
     [SerializeField] protected UpgradeRarity upgradeRarity;
     [SerializeField] protected int currentLevel;
     [SerializeField] protected int maxLevel;
-    
-    public IInventoryItemInfo ItemInfo { get; } //todo: add constructor
 
     public UpgradeRarity UpgradeRarity
     {

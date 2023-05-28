@@ -9,6 +9,7 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     public event Action<Vector2> OnMove;
     public event Action<Vector2> OnLook;
     public event Action OnAttack;
+    public event Action<int> OnWeaponChoose;
 
     private void Awake()
     {
@@ -59,5 +60,25 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     void GameInput.IGameplayActions.OnAttack(InputAction.CallbackContext context)
     {
         OnAttack?.Invoke();
+    }
+
+    public void OnChooseFirstWeapon(InputAction.CallbackContext context)
+    {
+        OnWeaponChoose?.Invoke(0);
+    }
+
+    public void OnChooseSecondWeapon(InputAction.CallbackContext context)
+    {
+        OnWeaponChoose?.Invoke(1);
+    }
+
+    public void OnChooseThirdWeapon(InputAction.CallbackContext context)
+    {
+        OnWeaponChoose?.Invoke(2);
+    }
+
+    public void OnChooseFourthWeapon(InputAction.CallbackContext context)
+    {
+        OnWeaponChoose?.Invoke(3);
     }
 }

@@ -42,8 +42,11 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
         var otherSlotUI = otherItemUI.GetComponentInParent<InventorySlotUI>();
         var otherSlot = otherSlotUI.Slot;
         var inventory = _inventoryUI.Inventory;
-        
-        inventory.TransitFromSlotToSlot(otherSlot, Slot);
+
+        if (gameObject.transform.parent == otherSlotUI.transform.parent)
+        {
+            inventory.TransitFromSlotToSlot(otherSlot, Slot);
+        }
     }
 
     private void Refresh()

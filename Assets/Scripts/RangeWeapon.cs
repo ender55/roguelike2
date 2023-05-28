@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
 
-public class RangeWeapon : Weapon
+public class RangeWeapon : Weapon //todo: clear code and handle with weapon stats
 {
+    [SerializeField] private RangeWeaponData rangeWeaponData;
     [SerializeField] private Projectile projectile;
-    [SerializeField] private Transform attackPoint;
-    [SerializeField] private RangeWeaponStats rangeWeaponStats;
+    [SerializeField] private Transform attackPointTransform;
 
-    public RangeWeaponStats RangeWeaponStats => rangeWeaponStats;
+    public RangeWeaponData RangeWeaponStats => rangeWeaponData;
+
+    public Projectile Projectile1 => projectile;
+
+    public Transform AttackPointTransform => attackPointTransform;
 
     public override void Attack()
     {
         base.Attack();
-        var projectileInstance = Instantiate(projectile, attackPoint.position, gameObject.transform.rotation);
+        var projectileInstance = Instantiate(projectile, attackPointTransform.position, gameObject.transform.rotation);
         projectileInstance.OnHit += ApplyDamage;
     }
 
@@ -20,15 +24,15 @@ public class RangeWeapon : Weapon
         base.AlternativeAttack();
     }
 
-    public void AddUpgrade(RangeWeaponUpgrade upgrade)
-    {
-        upgrades.Add(upgrade);
-        upgrade.Equip(this);
-    }
+    //public void AddUpgrade(RangeWeaponUpgrade upgrade)
+    //{
+    //    upgrades.Add(upgrade);
+    //    upgrade.Equip(this);
+    //}
     
-    public void RemoveUpgrade(RangeWeaponUpgrade upgrade)
-    {
-        upgrade.Unequip();
-        upgrades.Remove(upgrade);
-    }
+    //public void RemoveUpgrade(RangeWeaponUpgrade upgrade)
+    //{
+    //    upgrade.Unequip();
+    //    upgrades.Remove(upgrade);
+    //}
 }

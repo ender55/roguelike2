@@ -29,7 +29,9 @@ public class InventoryItemUI : MonoBehaviour, IDragHandler, IBeginDragHandler, I
     public void OnBeginDrag(PointerEventData eventData)
     {
         var slotTransform = _rectTransform.parent;
+        var inventoryTransform = slotTransform.parent;
         slotTransform.SetAsLastSibling();
+        inventoryTransform.SetAsLastSibling();
         _canvasGroup.blocksRaycasts = false;
     }
 

@@ -9,7 +9,7 @@ public class InventoryUI : MonoBehaviour
     public Inventory Inventory { get; protected set; }
     public ItemSpawner ItemSpawner => itemSpawner;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         var slots = Inventory.GetInventorySlots();
         for (int i = 0; i < Inventory.Capacity; i++)

@@ -7,6 +7,5 @@ public class InventoryBackgroundUI : MonoBehaviour, IDropHandler
     {
         var otherItemUI = eventData.pointerDrag.GetComponent<InventoryItemUI>();
         otherItemUI.DropItem();
-        Debug.Log("Drop");
     }
 }

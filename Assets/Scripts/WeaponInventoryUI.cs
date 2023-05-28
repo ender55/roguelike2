@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-class UpgradeInventoryUI : InventoryUI
+class WeaponInventoryUI : InventoryUI
 {
     [SerializeField] private Player player;
 
     protected override void Start()
     {
-        Inventory = player.UpgradeInventory;
+        Inventory = player.WeaponInventory;
         base.Start();
     }
 }
