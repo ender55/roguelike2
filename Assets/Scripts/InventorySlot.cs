@@ -13,6 +13,7 @@ public class InventorySlot
      }
 
      public event Action OnSlotChanged;
+     public event Action OnSlotCleared;
 
      public bool IsEmpty => Item == null;
 
@@ -28,6 +29,7 @@ public class InventorySlot
           {
                Item = null; 
                OnSlotChanged?.Invoke();
+               OnSlotCleared?.Invoke();
           }
      }
 }

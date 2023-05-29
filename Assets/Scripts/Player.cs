@@ -3,26 +3,28 @@ using UnityEngine;
 
 public class Player : Unit, IUpgradeCollector, IWeaponCollector
 {
-    private InputController _inputController;
-    
-    [SerializeField] private GameObject weapon; //todo: deal with it
     [SerializeField] private Transform weaponSlot;
-
-    [SerializeField] private UpgradeInventory upgradeInventory;
     [SerializeField] private WeaponInventory weaponInventory;
+    
+    [SerializeField] private UpgradeInventory upgradeInventory;
+
+    private InputController _inputController;
+    private InventorySlot _currentSlot;
 
     public UpgradeInventory UpgradeInventory => upgradeInventory;
     public WeaponInventory WeaponInventory => weaponInventory;
 
-    public Weapon Weapon { get; set; } 
+    public Weapon Weapon { get; private set; } 
 
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
         upgradeInventory = new UpgradeInventory(10);
         weaponInventory = new WeaponInventory(4);
-        //weapon = Instantiate(weapon, weaponSlot);
-        //Weapon = weapon.GetComponent(typeof(Weapon)) as Weapon;
+        if (weaponInventory.GetInventorySlots()[0].Item != null)
+        {
+            EquipWeapon(0);
+        }
     }
 
     private void OnEnable()
@@ -34,7 +36,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector
             _inputController.OnAttack += Weapon.Attack;
         }
 
-        _inputController.OnWeaponChoose += ChooseWeapon;
+        _inputController.OnWeaponChoose += EquipWeapon;
     }
 
     private void OnDisable()
@@ -46,7 +48,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector
             _inputController.OnAttack -= Weapon.Attack;
         }
         
-        _inputController.OnWeaponChoose -= ChooseWeapon;
+        _inputController.OnWeaponChoose -= EquipWeapon;
     }
 
     private void LookAt(Vector2 target)
@@ -86,20 +88,30 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector
         }
     }
 
-    private void ChooseWeapon(int weaponNumber) //todo: check this method
+    private void EquipWeapon(int weaponNumber) //todo: change attribute to Weapon and create interface IWeaponUser
     {
-        var chosenWeapon = weaponInventory.GetInventorySlots()[weaponNumber].Item as InventoryWeapon;
-        if (chosenWeapon != null && chosenWeapon.Weapon.TryGetComponent(out Weapon weapon))
+        var chosenWeaponSlot = weaponInventory.GetInventorySlots()[weaponNumber];
+        var chosenWeapon = chosenWeaponSlot.Item as InventoryWeapon;
+        if (chosenWeapon != null && chosenWeapon.WeaponPrefab.TryGetComponent(out Weapon weaponComponent))
         {
-            if (Weapon != null)
+            if (Weapon != null && _currentSlot != null)
             {
-                _inputController.OnAttack -= Weapon.Attack;
-                Destroy(Weapon.gameObject);
+                UnequipWeapon();
             }
-
-            this.weapon = Instantiate(chosenWeapon.Weapon, weaponSlot);
-            Weapon = this.weapon.GetComponent(typeof(Weapon)) as Weapon;
+            
+            Weapon = Instantiate(chosenWeapon.WeaponPrefab, weaponSlot).GetComponent<Weapon>();
+            _currentSlot = chosenWeaponSlot;
             _inputController.OnAttack += Weapon.Attack;
+            _currentSlot.OnSlotCleared += UnequipWeapon;
         }
+    }
+
+    private void UnequipWeapon()
+    {
+        _inputController.OnAttack -= Weapon.Attack;
+        _currentSlot.OnSlotCleared -= UnequipWeapon;
+        Destroy(Weapon.gameObject);
+        Weapon = null;
+        _currentSlot = null;
     }
 }

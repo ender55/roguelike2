@@ -5,5 +5,5 @@ public class InventoryWeapon : InventoryItem
 {
     [SerializeField] private GameObject weaponPrefab;
 
-    public GameObject Weapon => weaponPrefab;
+    public GameObject WeaponPrefab => weaponPrefab;
 }
