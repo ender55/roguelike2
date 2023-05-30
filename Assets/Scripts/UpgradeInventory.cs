@@ -11,7 +11,29 @@ public class UpgradeInventory : Inventory
     {
         if (item is Upgrade)
         {
-            return base.TryAddItem(item);
+            return BaseTryAddItem(item);
+        }
+
+        return false;
+    }
+
+    protected bool BaseTryAddItem(InventoryItem item)
+    {
+        return base.TryAddItem(item);
+    }
+}
+
+class RangeWeaponUpgradeInventory : UpgradeInventory
+{
+    public RangeWeaponUpgradeInventory(int capacity) : base(capacity)
+    {
+    }
+    
+    public override bool TryAddItem(InventoryItem item)
+    {
+        if (item is RangeWeaponUpgrade || item is WeaponUpgrade)
+        {
+            return BaseTryAddItem(item);
         }
 
         return false;

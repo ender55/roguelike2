@@ -2,6 +2,8 @@
 {
     protected RangeWeapon currentWeapon;
 
+    public RangeWeapon CurrentWeapon => currentWeapon;
+
     public void Equip(RangeWeapon weapon)
     {
         currentWeapon = weapon;

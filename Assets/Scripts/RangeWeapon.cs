@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class RangeWeapon : Weapon //todo: clear code and handle with weapon stats
 {
@@ -8,9 +9,14 @@ public class RangeWeapon : Weapon //todo: clear code and handle with weapon stat
 
     public RangeWeaponData RangeWeaponStats => rangeWeaponData;
 
-    public Projectile Projectile1 => projectile;
+    public Projectile Projectile => projectile;
 
     public Transform AttackPointTransform => attackPointTransform;
+
+    private void Awake()
+    {
+        upgradeInventory = new RangeWeaponUpgradeInventory(weaponData.UpgradesAmount);
+    }
 
     public override void Attack()
     {

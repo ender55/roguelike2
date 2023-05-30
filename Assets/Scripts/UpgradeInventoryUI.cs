@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using TNRD;
+using UnityEngine;
 
 class UpgradeInventoryUI : InventoryUI
 {
-    [SerializeField] private Player player;
+    [SerializeField] private SerializableInterface<IUpgradeCollector> upgradeCollector;
 
     protected override void Start()
     {
-        Inventory = player.UpgradeInventory;
+        Inventory = upgradeCollector.Value.UpgradeInventory;
         base.Start();
     }
 }

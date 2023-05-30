@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using TNRD;
+using UnityEngine;
 
 class WeaponInventoryUI : InventoryUI
 {
-    [SerializeField] private Player player;
+    [SerializeField] private SerializableInterface<IWeaponCollector> weaponCollector;
 
     protected override void Start()
     {
-        Inventory = player.WeaponInventory;
+        Inventory = weaponCollector.Value.WeaponInventory;
         base.Start();
     }
 }

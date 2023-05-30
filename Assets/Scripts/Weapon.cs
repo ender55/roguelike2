@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public abstract class Weapon : MonoBehaviour //todo: clear code
+public abstract class Weapon : MonoBehaviour, IUpgradeCollector //todo: clear code
 {
-    //[SerializeField] protected List<Upgrade> upgrades;
     [SerializeField] protected WeaponData weaponData;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] protected UpgradeInventory upgradeInventory;
     
-    //public List<Upgrade> Upgrades => upgrades;
     public WeaponData WeaponStats => weaponData;
 
     public SpriteRenderer SpriteRenderer => spriteRenderer;
+    public UpgradeInventory UpgradeInventory => upgradeInventory;
 
     public event Action OnAttack;
     public event Action OnAlternativeAttack;

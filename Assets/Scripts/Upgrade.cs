@@ -33,20 +33,6 @@ public abstract class Upgrade : InventoryItem
         }
     }
 
-    public void LevelUpUpgrade()
-    {
-        if (currentLevel < maxLevel)
-        {
-            currentLevel++;
-            LevelUp();
-        }
-    }
-
-    protected virtual void LevelUp()
-    {
-        
-    }
-
     public abstract void Activate();
     
     public abstract void Deactivate();

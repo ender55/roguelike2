@@ -4,6 +4,8 @@
 public class WeaponData : ScriptableObject //todo: clear code
 {
     //stats
+    [SerializeField] private int upgradesAmount;
+    
     [SerializeField] private Damage baseDamage;
     [SerializeField] private float attackSpeed;
     //[SerializeField] private float energyConsumption;
@@ -31,5 +33,7 @@ public class WeaponData : ScriptableObject //todo: clear code
     }
 
     public float AttackSpeedModifier => attackSpeedModifier;
+
+    public int UpgradesAmount => upgradesAmount;
     //public float EnergyConsumptionModifier => energyConsumptionModifier;
 }
