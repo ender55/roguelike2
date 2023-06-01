@@ -5,7 +5,6 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector
 {
     [SerializeField] private Transform weaponSlot;
     [SerializeField] private WeaponInventory weaponInventory;
-    
     [SerializeField] private UpgradeInventory upgradeInventory;
 
     private InputController _inputController;
@@ -77,13 +76,17 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector
         {
             if (pickupItem.Item is Upgrade)
             {
-                upgradeInventory.TryAddItem(pickupItem.Item);
-                Destroy(pickupItem.gameObject);
+                if(upgradeInventory.TryAddItem(pickupItem.Item))
+                {
+                    Destroy(pickupItem.gameObject);
+                }
             }
-            else if (pickupItem.Item is InventoryWeapon)
+            else if (pickupItem.Item is InventoryWeaponItem)
             {
-                weaponInventory.TryAddItem(pickupItem.Item);
-                Destroy(pickupItem.gameObject);
+                if (weaponInventory.TryAddItem(pickupItem.Item))
+                {
+                    Destroy(pickupItem.gameObject);
+                }
             }
         }
     }
@@ -91,7 +94,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector
     private void EquipWeapon(int weaponNumber) //todo: change attribute to Weapon and create interface IWeaponUser
     {
         var chosenWeaponSlot = weaponInventory.GetInventorySlots()[weaponNumber];
-        var chosenWeapon = chosenWeaponSlot.Item as InventoryWeapon;
+        var chosenWeapon = chosenWeaponSlot.Item as InventoryWeaponItem;
         if (chosenWeapon != null && chosenWeapon.WeaponPrefab.TryGetComponent(out Weapon weaponComponent))
         {
             if (Weapon != null && _currentSlot != null)
@@ -100,9 +103,19 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector
             }
             
             Weapon = Instantiate(chosenWeapon.WeaponPrefab, weaponSlot).GetComponent<Weapon>();
+            if (chosenWeapon is InventoryRangeWeaponItem)
+            {
+                var chosenRangeWeapon = chosenWeapon as InventoryRangeWeaponItem;
+                Weapon.SetUpgradeInventory(chosenRangeWeapon.UpgradeInventory);
+            }
+            
             _currentSlot = chosenWeaponSlot;
             _inputController.OnAttack += Weapon.Attack;
             _currentSlot.OnSlotCleared += UnequipWeapon;
+            if (gameObject.transform.rotation.eulerAngles.z > 90 && gameObject.transform.rotation.eulerAngles.z < 270)
+            {
+                Weapon.SpriteRenderer.flipY = true;
+            }
         }
     }
 

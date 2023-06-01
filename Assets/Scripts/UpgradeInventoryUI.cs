@@ -7,7 +7,16 @@ class UpgradeInventoryUI : InventoryUI
 
     protected override void Start()
     {
-        Inventory = upgradeCollector.Value.UpgradeInventory;
-        base.Start();
+        if (upgradeCollector != null)
+        {
+            Inventory = upgradeCollector.Value.UpgradeInventory;
+            base.Start();
+        }
+    }
+
+    public void SetCollector(IUpgradeCollector collector)
+    {
+        upgradeCollector.Value = collector;
+        Start();
     }
 }

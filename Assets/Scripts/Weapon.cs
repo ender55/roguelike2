@@ -6,9 +6,13 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector //todo: clear co
 {
     [SerializeField] protected WeaponData weaponData;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] protected UpgradeInventory upgradeInventory;
-    
-    public WeaponData WeaponStats => weaponData;
+    [ReadOnly] public UpgradeInventory upgradeInventory;
+
+    public WeaponData WeaponData
+    {
+        get => weaponData;
+        set => weaponData = value;
+    }
 
     public SpriteRenderer SpriteRenderer => spriteRenderer;
     public UpgradeInventory UpgradeInventory => upgradeInventory;
@@ -45,5 +49,10 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector //todo: clear co
         tempDamage.DamageValue = (int)(tempDamage.DamageValue * weaponData.DamageModifier);
         damageable.TakeDamage(tempDamage);
         OnHit?.Invoke(damageable);
+    }
+
+    public void SetUpgradeInventory(UpgradeInventory inventory)
+    {
+        upgradeInventory = inventory;
     }
 }

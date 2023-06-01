@@ -64,3 +64,8 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
         Slot.Clear();
     }
 }
+
+class WeaponInventorySlotUI : InventorySlotUI
+{
+    
+}

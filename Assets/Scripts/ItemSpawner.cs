@@ -5,9 +5,9 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
     [SerializeField] private PickupItem pickupItemPrefab;
-    [SerializeField] private Transform transform;
+    [SerializeField] private new Transform transform;
     [SerializeField] private List<Upgrade> upgradesList;
-    [SerializeField] private List<InventoryWeapon> weaponsList;
+    [SerializeField] private List<InventoryWeaponItem> weaponsList;
 
     private void Start()
     {
@@ -16,9 +16,10 @@ public class ItemSpawner : MonoBehaviour
         SpawnItem(upgradesList[1], new Vector2(0, +3));
     }
 
-    public void SpawnItem(InventoryItem item, Vector2 position)
+    public void SpawnItem(InventoryItem item, Vector2 positionOffset)
     {
-        var tempItem = Instantiate(pickupItemPrefab, (Vector2)transform.position + position, quaternion.identity);
+        var tempItem = Instantiate(pickupItemPrefab, (Vector2)transform.position + positionOffset, quaternion.identity);
+        item.Awake();
         tempItem.SetItem(item);
     }
 

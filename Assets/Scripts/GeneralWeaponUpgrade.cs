@@ -1,4 +1,4 @@
-﻿public abstract class WeaponUpgrade : Upgrade
+﻿public abstract class GeneralWeaponUpgrade : Upgrade
 {
     protected Weapon currentWeapon;
 

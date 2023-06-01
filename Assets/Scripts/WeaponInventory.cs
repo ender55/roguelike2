@@ -9,7 +9,7 @@ public class WeaponInventory : Inventory
     
     public override bool TryAddItem(InventoryItem item)
     {
-        if (item is InventoryWeapon)
+        if (item is InventoryWeaponItem)
         {
             return base.TryAddItem(item);
         }

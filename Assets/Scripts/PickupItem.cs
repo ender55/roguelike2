@@ -4,7 +4,7 @@ using UnityEngine;
 public class PickupItem : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private CircleCollider2D collider2D;
+    [SerializeField] private new CircleCollider2D collider;
 
     public InventoryItem Item
     {
@@ -21,8 +21,8 @@ public class PickupItem : MonoBehaviour
     private IEnumerator Start()
     {
         spriteRenderer.sprite = Item.ItemInfo.ItemSprite;
-        collider2D.enabled = false;
+        collider.enabled = false;
         yield return new WaitForSeconds(2f);
-        collider2D.enabled = true;
+        collider.enabled = true;
     }
 }

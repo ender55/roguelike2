@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "SO/Item/Upgrade/Weapon Upgrade/Attack Upgrade", fileName = "AttackUpgrade")]
-public class WeaponAttackUpgrade : WeaponUpgrade
+public class WeaponAttackUpgrade : GeneralWeaponUpgrade
 {
     [SerializeField] private SerializedDictionary<UpgradeRarity, float> damageModifierByRarity;
     [SerializeField] private SerializedDictionary<int, float> damageModifierByLevel;
@@ -12,11 +12,11 @@ public class WeaponAttackUpgrade : WeaponUpgrade
     
     public override void Activate()
     {
-        currentWeapon.WeaponStats.DamageModifier += damageModifierByRarity[upgradeRarity] + damageModifierByLevel[currentLevel];
+        currentWeapon.WeaponData.DamageModifier += damageModifierByRarity[upgradeRarity] + damageModifierByLevel[currentLevel];
     }
 
     public override void Deactivate()
     {
-        currentWeapon.WeaponStats.DamageModifier -= damageModifierByRarity[upgradeRarity] + damageModifierByLevel[currentLevel];
+        currentWeapon.WeaponData.DamageModifier -= damageModifierByRarity[upgradeRarity] + damageModifierByLevel[currentLevel];
     }
 }

@@ -38,7 +38,7 @@ public class Inventory //todo: add interface
         return slots;
     }
 
-    public void TransitFromSlotToSlot(InventorySlot fromSlot, InventorySlot toSlot) //todo: check if we try to put an item to the same slot
+    public void TransitFromSlotToSlot(InventorySlot fromSlot, InventorySlot toSlot)
     {
         if (fromSlot.IsEmpty)
         {
