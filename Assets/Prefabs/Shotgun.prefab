@@ -130,8 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 322a6d8d753c498a84a1315eef4f1692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: cb60037fe1c655743aa4730260899fda, type: 2}
+  weaponData: {fileID: 11400000, guid: 5821f46f71b5be540847d3a8a07ad61b, type: 2}
   spriteRenderer: {fileID: 8347042881440581339}
+  upgradeInventory:
+    slots: []
   rangeWeaponData: {fileID: 11400000, guid: 832a3f208df6b044aa1ec91d662e26c2, type: 2}
   projectile: {fileID: 5034615070507311807, guid: c172bdadb14908a46bd0cd103d141ef9, type: 3}
   attackPointTransform: {fileID: 8347042882746481562}

@@ -13,11 +13,6 @@ public class WeaponData : ScriptableObject //todo: clear code
     //[SerializeField] private int criticalDamageChance;
     //[SerializeField] private float criticalDamageMultiplier;
     //[SerializeField] private float attackRange;
-    
-    //modifiers
-    [SerializeField] private float damageModifier;
-    [SerializeField] private float attackSpeedModifier;
-    //[SerializeField] private float energyConsumptionModifier;
 
     public Damage BaseDamage => baseDamage;
     public float AttackSpeed => attackSpeed;
@@ -26,13 +21,6 @@ public class WeaponData : ScriptableObject //todo: clear code
     //public int CriticalDamageChance => criticalDamageChance;
     //public float CriticalDamageMultiplier => criticalDamageMultiplier;
     //public float AttackRange => attackRange;
-    public float DamageModifier
-    {
-        get => damageModifier;
-        set => damageModifier = value;
-    }
-
-    public float AttackSpeedModifier => attackSpeedModifier;
 
     public int UpgradesAmount => upgradesAmount;
     //public float EnergyConsumptionModifier => energyConsumptionModifier;

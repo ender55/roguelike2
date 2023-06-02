@@ -7,7 +7,7 @@ class UpgradeInventoryUI : InventoryUI
 
     protected override void Start()
     {
-        if (upgradeCollector != null)
+        if (upgradeCollector.Value != null)
         {
             Inventory = upgradeCollector.Value.UpgradeInventory;
             base.Start();

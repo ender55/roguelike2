@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Player : Unit, IUpgradeCollector, IWeaponCollector
+public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
 {
     [SerializeField] private Transform weaponSlot;
     [SerializeField] private WeaponInventory weaponInventory;
@@ -12,8 +11,10 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector
 
     public UpgradeInventory UpgradeInventory => upgradeInventory;
     public WeaponInventory WeaponInventory => weaponInventory;
+    public InputController InputController => _inputController;
 
-    public Weapon Weapon { get; private set; } 
+    public Weapon Weapon { get; private set; }
+    
 
     private void Awake()
     {

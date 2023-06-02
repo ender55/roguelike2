@@ -1,18 +1,12 @@
-﻿public abstract class RangeWeaponUpgrade : Upgrade
+﻿public abstract class RangeWeaponUpgrade : WeaponUpgrade
 {
-    protected RangeWeapon currentWeapon;
-
-    public RangeWeapon CurrentWeapon => currentWeapon;
-
-    public void Equip(RangeWeapon weapon)
+    public override void Equip(Weapon weapon)
     {
-        currentWeapon = weapon;
-        Activate();
+        if (weapon is RangeWeapon)
+        {
+            currentWeapon = weapon;
+            Activate();
+        }
     }
 
-    public void Unequip()
-    {
-        Deactivate();
-        currentWeapon = null;
-    }
 }

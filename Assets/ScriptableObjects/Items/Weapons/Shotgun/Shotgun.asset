@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca67bde16304ae981961f376e3c23e7, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  itemInfo: {fileID: 0}
-  weaponPrefab: {fileID: 0}
+  itemInfo: {fileID: 11400000, guid: 18460ef083a6a8c478750956b069cc90, type: 2}
+  weaponPrefab: {fileID: 8347042881518828724, guid: b8ee88baf2d72b14683c09ed25c63621, type: 3}
+  upgradeInventory:
+    slots:
+    - item: {fileID: 0}
+    - item: {fileID: 0}
+    - item: {fileID: 0}

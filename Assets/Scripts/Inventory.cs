@@ -7,7 +7,8 @@ public class Inventory //todo: add interface
 {
     [SerializeField] protected List<InventorySlot> slots;
 
-    public int Capacity { get; set; }
+    public event Action OnInventoryChange;
+    public int Capacity { get; private set; }
 
     public Inventory(int capacity)
     {
@@ -16,6 +17,7 @@ public class Inventory //todo: add interface
         for (int i = 0; i < capacity; i++)
         {
             slots.Add(new InventorySlot());
+            slots[i].OnSlotChanged += () => OnInventoryChange?.Invoke();
         }
     }
 
@@ -26,6 +28,7 @@ public class Inventory //todo: add interface
             if (slot.IsEmpty)
             {
                 slot.SetItem(item);
+                OnInventoryChange?.Invoke();
                 return true;
             }
         }

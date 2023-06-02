@@ -12,12 +12,25 @@ public class InventoryUI : MonoBehaviour
     protected virtual void Start() //todo: add check is inventory null
     {
         var slots = Inventory.GetInventorySlots();
-        for (int i = 0; i < Inventory.Capacity; i++)
+        for (int i = 0; i < slotsUI.Count; i++)
         {
             if (slotsUI[i] != null)
             {
-                slotsUI[i].SetSlot(slots[i]);
+                if (i < Inventory.Capacity)
+                {
+                    slotsUI[i].gameObject.SetActive(true);
+                    slotsUI[i].SetSlot(slots[i]);
+                }
+                else
+                {
+                    slotsUI[i].gameObject.SetActive(false);
+                }
             }
         }
+    }
+
+    public List<InventorySlotUI> GetAllSlotsUI()
+    {
+        return slotsUI;
     }
 }

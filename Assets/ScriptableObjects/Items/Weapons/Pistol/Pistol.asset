@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca67bde16304ae981961f376e3c23e7, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  itemInfo: {fileID: 0}
-  weaponPrefab: {fileID: 0}
+  itemInfo: {fileID: 11400000, guid: 9d919e59ca50cb0448729a3577048619, type: 2}
+  weaponPrefab: {fileID: 8347042881518828724, guid: ba4b1a98c2fc68d45b1633aba9922c9d, type: 3}
+  upgradeInventory:
+    slots:
+    - item: {fileID: 0}
+    - item: {fileID: 0}
+    - item: {fileID: 0}

@@ -10,6 +10,8 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     public event Action<Vector2> OnLook;
     public event Action OnAttack;
     public event Action<int> OnWeaponChoose;
+    public event Action OnInventoryOpen;
+    public event Action OnInventoryClose;
 
     private void Awake()
     {
@@ -42,6 +44,18 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
                 inputActionMap.Disable();
             }
         }
+    }
+
+    public string GetCurrentActionMap()
+    {
+        foreach (InputActionMap inputActionMap in _gameInput.asset.actionMaps)
+        {
+            if(inputActionMap.enabled)
+            {
+                return inputActionMap.name;
+            }
+        }
+        return null;
     }
     
     void GameInput.IGameplayActions.OnMove(InputAction.CallbackContext context)
@@ -80,5 +94,17 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     public void OnChooseFourthWeapon(InputAction.CallbackContext context)
     {
         OnWeaponChoose?.Invoke(3);
+    }
+
+    public void OnOpenInventory(InputAction.CallbackContext context)
+    {
+        SetActionMap("UI");
+        OnInventoryOpen?.Invoke();
+    }
+
+    public void OnCloseInventory(InputAction.CallbackContext context)
+    {
+        SetActionMap("Gameplay");
+        OnInventoryClose?.Invoke();
     }
 }

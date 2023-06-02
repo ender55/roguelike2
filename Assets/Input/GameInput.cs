@@ -89,6 +89,15 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Open Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c0522cf-dfd7-48d9-9892-15643d58963a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,14 +221,47 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                     ""action"": ""Choose Fourth Weapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b27bcba2-e66e-4b18-af5a-9b9a143ee386"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Open Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
             ""name"": ""UI"",
             ""id"": ""883fb12b-c277-46c8-8427-dd5d181aa0b2"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""Close Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""2e90164e-9cb2-4ff3-bd95-5f28d5cdf344"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ed8ea3b8-91f6-49e0-9483-cf507b63eb69"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Close Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -233,8 +275,10 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         m_Gameplay_ChooseSecondWeapon = m_Gameplay.FindAction("Choose Second Weapon", throwIfNotFound: true);
         m_Gameplay_ChooseThirdWeapon = m_Gameplay.FindAction("Choose Third Weapon", throwIfNotFound: true);
         m_Gameplay_ChooseFourthWeapon = m_Gameplay.FindAction("Choose Fourth Weapon", throwIfNotFound: true);
+        m_Gameplay_OpenInventory = m_Gameplay.FindAction("Open Inventory", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_CloseInventory = m_UI.FindAction("Close Inventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -301,6 +345,7 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_ChooseSecondWeapon;
     private readonly InputAction m_Gameplay_ChooseThirdWeapon;
     private readonly InputAction m_Gameplay_ChooseFourthWeapon;
+    private readonly InputAction m_Gameplay_OpenInventory;
     public struct GameplayActions
     {
         private @GameInput m_Wrapper;
@@ -312,6 +357,7 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         public InputAction @ChooseSecondWeapon => m_Wrapper.m_Gameplay_ChooseSecondWeapon;
         public InputAction @ChooseThirdWeapon => m_Wrapper.m_Gameplay_ChooseThirdWeapon;
         public InputAction @ChooseFourthWeapon => m_Wrapper.m_Gameplay_ChooseFourthWeapon;
+        public InputAction @OpenInventory => m_Wrapper.m_Gameplay_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -327,9 +373,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
-                @Attack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
+                //@Attack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
-                @Attack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
+                //@Attack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
                 @ChooseFirstWeapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFirstWeapon;
                 @ChooseFirstWeapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFirstWeapon;
                 @ChooseFirstWeapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFirstWeapon;
@@ -342,6 +388,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @ChooseFourthWeapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFourthWeapon;
+                @OpenInventory.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -352,12 +401,12 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
-                @Attack.started += instance.OnAttack;
+                //@Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
-                @Attack.canceled += instance.OnAttack;
-                //@ChooseFirstWeapon.started += instance.OnChooseFirstWeapon;
+                //@Attack.canceled += instance.OnAttack;
+                @ChooseFirstWeapon.started += instance.OnChooseFirstWeapon;
                 @ChooseFirstWeapon.performed += instance.OnChooseFirstWeapon;
-                //@ChooseFirstWeapon.canceled += instance.OnChooseFirstWeapon;
+                @ChooseFirstWeapon.canceled += instance.OnChooseFirstWeapon;
                 @ChooseSecondWeapon.started += instance.OnChooseSecondWeapon;
                 @ChooseSecondWeapon.performed += instance.OnChooseSecondWeapon;
                 @ChooseSecondWeapon.canceled += instance.OnChooseSecondWeapon;
@@ -367,6 +416,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @ChooseFourthWeapon.started += instance.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.performed += instance.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.canceled += instance.OnChooseFourthWeapon;
+                @OpenInventory.started += instance.OnOpenInventory;
+                @OpenInventory.performed += instance.OnOpenInventory;
+                @OpenInventory.canceled += instance.OnOpenInventory;
             }
         }
     }
@@ -375,10 +427,12 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
     // UI
     private readonly InputActionMap m_UI;
     private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_CloseInventory;
     public struct UIActions
     {
         private @GameInput m_Wrapper;
         public UIActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CloseInventory => m_Wrapper.m_UI_CloseInventory;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -388,10 +442,16 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_UIActionsCallbackInterface != null)
             {
+                @CloseInventory.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
+                @CloseInventory.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
+                @CloseInventory.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @CloseInventory.started += instance.OnCloseInventory;
+                @CloseInventory.performed += instance.OnCloseInventory;
+                @CloseInventory.canceled += instance.OnCloseInventory;
             }
         }
     }
@@ -405,8 +465,10 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         void OnChooseSecondWeapon(InputAction.CallbackContext context);
         void OnChooseThirdWeapon(InputAction.CallbackContext context);
         void OnChooseFourthWeapon(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
+        void OnCloseInventory(InputAction.CallbackContext context);
     }
 }

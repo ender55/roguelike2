@@ -13,7 +13,7 @@ public class ItemSpawner : MonoBehaviour
     {
         SpawnItem(weaponsList[0], new Vector2(0, -3));
         SpawnItem(weaponsList[1], new Vector2(-3, -3));
-        SpawnItem(upgradesList[1], new Vector2(0, +3));
+        SpawnItem(upgradesList[0], new Vector2(0, +3));
     }
 
     public void SpawnItem(InventoryItem item, Vector2 positionOffset)

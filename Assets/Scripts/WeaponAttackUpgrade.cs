@@ -12,11 +12,11 @@ public class WeaponAttackUpgrade : GeneralWeaponUpgrade
     
     public override void Activate()
     {
-        currentWeapon.WeaponData.DamageModifier += damageModifierByRarity[upgradeRarity] + damageModifierByLevel[currentLevel];
+        currentWeapon.WeaponModifiers.DamageModifier += damageModifierByRarity[upgradeRarity] + damageModifierByLevel[currentLevel];
     }
 
     public override void Deactivate()
     {
-        currentWeapon.WeaponData.DamageModifier -= damageModifierByRarity[upgradeRarity] + damageModifierByLevel[currentLevel];
+        currentWeapon.WeaponModifiers.DamageModifier -= damageModifierByRarity[upgradeRarity] + damageModifierByLevel[currentLevel];
     }
 }

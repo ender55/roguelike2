@@ -14,8 +14,9 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
         _inventoryUI = GetComponentInParent<InventoryUI>();
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
+        Refresh();
         if (Slot != null)
         {
             Slot.OnSlotChanged += Refresh;
@@ -24,13 +25,17 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
         itemUI.OnItemDropped += DropItem;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
-        Slot.OnSlotChanged -= Refresh;
+        if (Slot != null)
+        {
+            Slot.OnSlotChanged -= Refresh;
+        }
+        
         itemUI.OnItemDropped -= DropItem;
     }
 
-    public void SetSlot(InventorySlot slot)
+    public virtual void SetSlot(InventorySlot slot)
     {
         Slot = slot;
         Slot.OnSlotChanged += Refresh;
@@ -50,7 +55,7 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
         }
     }
 
-    private void Refresh()
+    public void Refresh()
     {
         if (Slot != null)
         {
@@ -63,9 +68,4 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
         _inventoryUI.ItemSpawner.SpawnItem(itemUI.Item);
         Slot.Clear();
     }
-}
-
-class WeaponInventorySlotUI : InventorySlotUI
-{
-    
 }

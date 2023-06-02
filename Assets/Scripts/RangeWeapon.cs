@@ -30,15 +30,13 @@ public class RangeWeapon : Weapon //todo: clear code and handle with weapon stat
         base.AlternativeAttack();
     }
 
-    //public void AddUpgrade(RangeWeaponUpgrade upgrade)
-    //{
-    //    upgrades.Add(upgrade);
-    //    upgrade.Equip(this);
-    //}
-    
-    //public void RemoveUpgrade(RangeWeaponUpgrade upgrade)
-    //{
-    //    upgrade.Unequip();
-    //    upgrades.Remove(upgrade);
-    //}
+    public override void AddUpgrade(Upgrade upgrade)
+    {
+        if (upgrade is RangeWeaponUpgrade weaponUpgrade)
+        {
+            _upgrades.Add(weaponUpgrade);
+            weaponUpgrade.Equip(this);
+        }
+        base.AddUpgrade(upgrade);
+    }
 }
