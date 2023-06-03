@@ -45,6 +45,7 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable //t
 
     public virtual void Attack()
     {
+        Debug.Log(weaponModifiers.DamageModifier);
         OnAttack?.Invoke();
     }
 

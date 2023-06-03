@@ -15,7 +15,5 @@ MonoBehaviour:
   upgradesAmount: 3
   baseDamage:
     damageType: 0
-    damageValue: 10
+    damageValue: 30
   attackSpeed: 50
-  damageModifier: 1
-  attackSpeedModifier: 1

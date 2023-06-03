@@ -19,6 +19,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
+        _inputController.SetActionMap("Gameplay");
         upgradeInventory = new UpgradeInventory(10);
         weaponInventory = new WeaponInventory(4);
         if (weaponInventory.GetInventorySlots()[0].Item != null)

@@ -1,5 +1,4 @@
-﻿using System;
-using TNRD;
+﻿using TNRD;
 using UnityEngine;
 
 public class InventoryUIController : MonoBehaviour
@@ -13,7 +12,7 @@ public class InventoryUIController : MonoBehaviour
     {
         weaponInventory.SetActive(false);
         _inputController = inputHandler.Value.InputController;
-        _inputController.OnInventoryOpen += Activate;
+        _inputController.OnInventoryOpen += Activate; //todo: first event invocation doesnt registered
         _inputController.OnInventoryClose += Deactivate;
     }
 
@@ -26,10 +25,12 @@ public class InventoryUIController : MonoBehaviour
     private void Activate()
     {
         weaponInventory.SetActive(true);
+        _inputController.SetActionMap("UI");
     }
 
     private void Deactivate()
     {
         weaponInventory.SetActive(false);
+        _inputController.SetActionMap("Gameplay");
     }
 }

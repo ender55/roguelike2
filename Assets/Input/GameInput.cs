@@ -388,9 +388,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @ChooseFourthWeapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFourthWeapon;
-                @OpenInventory.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
+                //@OpenInventory.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
                 @OpenInventory.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
-                @OpenInventory.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
+                //@OpenInventory.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -416,9 +416,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @ChooseFourthWeapon.started += instance.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.performed += instance.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.canceled += instance.OnChooseFourthWeapon;
-                @OpenInventory.started += instance.OnOpenInventory;
+                //@OpenInventory.started += instance.OnOpenInventory;
                 @OpenInventory.performed += instance.OnOpenInventory;
-                @OpenInventory.canceled += instance.OnOpenInventory;
+                //@OpenInventory.canceled += instance.OnOpenInventory;
             }
         }
     }
@@ -442,16 +442,16 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_UIActionsCallbackInterface != null)
             {
-                @CloseInventory.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
+                //@CloseInventory.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
                 @CloseInventory.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
-                @CloseInventory.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
+                //@CloseInventory.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @CloseInventory.started += instance.OnCloseInventory;
+                //@CloseInventory.started += instance.OnCloseInventory;
                 @CloseInventory.performed += instance.OnCloseInventory;
-                @CloseInventory.canceled += instance.OnCloseInventory;
+                //@CloseInventory.canceled += instance.OnCloseInventory;
             }
         }
     }

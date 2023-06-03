@@ -18,7 +18,6 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
         _gameInput = new GameInput();
         _gameInput.Gameplay.SetCallbacks(this);
         _gameInput.UI.SetCallbacks(this);
-        SetActionMap("Gameplay");
     }
 
     private void OnEnable()
@@ -35,7 +34,7 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     {
         foreach (InputActionMap inputActionMap in _gameInput.asset.actionMaps)
         {
-            if(inputActionMap.name == newInputActionMap)
+            if (inputActionMap.name == newInputActionMap)
             {
                 inputActionMap.Enable();
             }
@@ -48,14 +47,15 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
 
     public string GetCurrentActionMap()
     {
+        string str = "";
         foreach (InputActionMap inputActionMap in _gameInput.asset.actionMaps)
         {
             if(inputActionMap.enabled)
             {
-                return inputActionMap.name;
+                str += inputActionMap.name;
             }
         }
-        return null;
+        return str;
     }
     
     void GameInput.IGameplayActions.OnMove(InputAction.CallbackContext context)
