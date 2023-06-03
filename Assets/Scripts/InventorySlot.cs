@@ -17,7 +17,7 @@ public class InventorySlot
 
      public bool IsEmpty => Item == null;
 
-     public void SetItem(InventoryItem item) //todo: add checking for emptiness
+     public void SetItem(InventoryItem item)
      {
           Item = item;
           OnSlotChanged?.Invoke();

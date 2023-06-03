@@ -98,13 +98,11 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
 
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
-        SetActionMap("UI");
         OnInventoryOpen?.Invoke();
     }
 
     public void OnCloseInventory(InputAction.CallbackContext context)
     {
-        SetActionMap("Gameplay");
         OnInventoryClose?.Invoke();
     }
 }

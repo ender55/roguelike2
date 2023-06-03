@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable //todo: clear code
+public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
 {
     [SerializeField] protected WeaponData weaponData;
     [SerializeField] protected WeaponModifiers weaponModifiers;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [ReadOnly] public UpgradeInventory upgradeInventory; //todo: make private
+    
+    private UpgradeInventory _upgradeInventory; 
     protected List<Upgrade> _upgrades = new List<Upgrade>();
 
     public WeaponData WeaponData
@@ -20,7 +21,7 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable //t
     public WeaponModifiers WeaponModifiers => weaponModifiers;
 
     public SpriteRenderer SpriteRenderer => spriteRenderer;
-    public UpgradeInventory UpgradeInventory => upgradeInventory;
+    public UpgradeInventory UpgradeInventory => _upgradeInventory;
     public List<Upgrade> Upgrades => _upgrades;
 
     public event Action OnAttack;
@@ -29,17 +30,17 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable //t
 
     private void OnEnable()
     {
-        if (upgradeInventory != null)
+        if (_upgradeInventory != null)
         {
-            upgradeInventory.OnInventoryChange += RefreshUpgrades;
+            _upgradeInventory.OnInventoryChange += RefreshUpgrades;
         }
     }
 
     private void OnDisable()
     {
-        if (upgradeInventory != null)
+        if (_upgradeInventory != null)
         {
-            upgradeInventory.OnInventoryChange -= RefreshUpgrades;
+            _upgradeInventory.OnInventoryChange -= RefreshUpgrades;
         }
     }
 
@@ -64,8 +65,8 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable //t
 
     public void SetUpgradeInventory(UpgradeInventory inventory)
     {
-        upgradeInventory = inventory;
-        upgradeInventory.OnInventoryChange += RefreshUpgrades;
+        _upgradeInventory = inventory;
+        _upgradeInventory.OnInventoryChange += RefreshUpgrades;
     }
 
     public void RefreshUpgrades()
@@ -77,7 +78,7 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable //t
         
         _upgrades.Clear();
 
-        foreach (var slot in upgradeInventory.GetInventorySlots())
+        foreach (var slot in _upgradeInventory.GetInventorySlots())
         {
             if (slot.Item != null)
             {

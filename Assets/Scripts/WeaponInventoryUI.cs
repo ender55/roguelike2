@@ -1,7 +1,7 @@
 ﻿using TNRD;
 using UnityEngine;
 
-class WeaponInventoryUI : InventoryUI //todo: inventory doesnt update at first time
+class WeaponInventoryUI : InventoryUI
 {
     [SerializeField] private SerializableInterface<IWeaponCollector> weaponCollector;
 

@@ -6,8 +6,8 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
     [SerializeField] private InventoryItemUI itemUI;
 
     private InventoryUI _inventoryUI;
-    
-    public InventorySlot Slot { get; private set; } //todo: make private if need
+
+    protected InventorySlot Slot { get; private set; }
 
     private void Awake()
     {

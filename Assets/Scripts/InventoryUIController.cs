@@ -12,7 +12,7 @@ public class InventoryUIController : MonoBehaviour
     {
         weaponInventory.SetActive(false);
         _inputController = inputHandler.Value.InputController;
-        _inputController.OnInventoryOpen += Activate; //todo: first event invocation doesnt registered
+        _inputController.OnInventoryOpen += Activate;
         _inputController.OnInventoryClose += Deactivate;
     }
 

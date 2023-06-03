@@ -1,22 +1,14 @@
 ﻿using UnityEngine;
 
-public class RangeWeapon : Weapon //todo: clear code and handle with weapon stats
+public class RangeWeapon : Weapon
 {
     [SerializeField] private RangeWeaponData rangeWeaponData;
     [SerializeField] private Projectile projectile;
     [SerializeField] private Transform attackPointTransform;
 
     public RangeWeaponData RangeWeaponStats => rangeWeaponData;
-
     public Projectile Projectile => projectile;
-
     public Transform AttackPointTransform => attackPointTransform;
-
-    private void Awake()
-    {
-        //upgradeInventory = new RangeWeaponUpgradeInventory(weaponData.UpgradesAmount);
-        //upgradeInventory = weaponData
-    }
 
     public override void Attack()
     {

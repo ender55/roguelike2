@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItemUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler //todo: add method for dropping item
+public class InventoryItemUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField] private Image imageIcon;
     
@@ -41,7 +41,7 @@ public class InventoryItemUI : MonoBehaviour, IDragHandler, IBeginDragHandler, I
         _canvasGroup.blocksRaycasts = true;
     }
     
-    public void Refresh(InventorySlot slot) //todo: check method for correctness
+    public void Refresh(InventorySlot slot)
     {
         if (slot.IsEmpty)
         {
