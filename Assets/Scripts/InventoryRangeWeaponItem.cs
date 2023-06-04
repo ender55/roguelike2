@@ -7,7 +7,7 @@ public class InventoryRangeWeaponItem : InventoryWeaponItem
     {
         if (weaponPrefab.TryGetComponent(out Weapon weapon))
         {
-            upgradeInventory = new RangeWeaponUpgradeInventory(weapon.WeaponData.UpgradesAmount);
+            upgradeInventory = new RangeWeaponUpgradeInventory(weapon.UpgradesAmount);
         }
     }
 }

@@ -131,7 +131,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: cb60037fe1c655743aa4730260899fda, type: 2}
+  weaponModifiers:
+    damageModifier: 1
+    attackSpeedMultiplier: 1
   spriteRenderer: {fileID: 8347042881440581339}
+  upgradesAmount: 4
   rangeWeaponData: {fileID: 11400000, guid: 832a3f208df6b044aa1ec91d662e26c2, type: 2}
   projectile: {fileID: 5034615070507311807, guid: c172bdadb14908a46bd0cd103d141ef9, type: 3}
   attackPointTransform: {fileID: 8347042882746481562}

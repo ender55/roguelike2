@@ -180,6 +180,17 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""6d1a16a7-1497-4aae-971a-10e3c7738e64"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""3317c06e-ba09-497a-98a1-fae8dda785bf"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
@@ -373,9 +384,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
-                //@Attack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
+                @Attack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
-                //@Attack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
                 @ChooseFirstWeapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFirstWeapon;
                 @ChooseFirstWeapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFirstWeapon;
                 @ChooseFirstWeapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFirstWeapon;
@@ -388,9 +399,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @ChooseFourthWeapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChooseFourthWeapon;
-                //@OpenInventory.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
                 @OpenInventory.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
-                //@OpenInventory.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -401,9 +412,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
-                //@Attack.started += instance.OnAttack;
+                @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
-                //@Attack.canceled += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
                 @ChooseFirstWeapon.started += instance.OnChooseFirstWeapon;
                 @ChooseFirstWeapon.performed += instance.OnChooseFirstWeapon;
                 @ChooseFirstWeapon.canceled += instance.OnChooseFirstWeapon;
@@ -416,9 +427,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @ChooseFourthWeapon.started += instance.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.performed += instance.OnChooseFourthWeapon;
                 @ChooseFourthWeapon.canceled += instance.OnChooseFourthWeapon;
-                //@OpenInventory.started += instance.OnOpenInventory;
+                @OpenInventory.started += instance.OnOpenInventory;
                 @OpenInventory.performed += instance.OnOpenInventory;
-                //@OpenInventory.canceled += instance.OnOpenInventory;
+                @OpenInventory.canceled += instance.OnOpenInventory;
             }
         }
     }
@@ -442,16 +453,16 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_UIActionsCallbackInterface != null)
             {
-                //@CloseInventory.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
+                @CloseInventory.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
                 @CloseInventory.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
-                //@CloseInventory.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
+                @CloseInventory.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
             {
-                //@CloseInventory.started += instance.OnCloseInventory;
+                @CloseInventory.started += instance.OnCloseInventory;
                 @CloseInventory.performed += instance.OnCloseInventory;
-                //@CloseInventory.canceled += instance.OnCloseInventory;
+                @CloseInventory.canceled += instance.OnCloseInventory;
             }
         }
     }

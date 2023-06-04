@@ -14,13 +14,13 @@ public class Projectile : MonoBehaviour, IMovable, IDirectable
 
     private void Awake()
     {
-        direction.value = transform.right;
+        direction.SetDirection(transform.right);
         Destroy(gameObject, lifeTime);
     }
 
     private void FixedUpdate()
     {
-        movement.Move(direction.value);
+        movement.Move(direction.Value);
     }
 
     private void OnTriggerEnter2D(Collider2D col)

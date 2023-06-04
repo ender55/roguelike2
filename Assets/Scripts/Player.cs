@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
 {
@@ -8,6 +9,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
 
     private InputController _inputController;
     private InventorySlot _currentSlot;
+    private Coroutine weaponEquipCooldown; //todo: rework using coroutine manager
 
     public UpgradeInventory UpgradeInventory => upgradeInventory;
     public WeaponInventory WeaponInventory => weaponInventory;
@@ -34,7 +36,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
         _inputController.OnLook += LookAt;
         if (Weapon != null)
         {
-            _inputController.OnAttack += Weapon.Attack;
+            _inputController.OnAttack += Weapon.PerformAttack;
         }
 
         _inputController.OnWeaponChoose += EquipWeapon;
@@ -46,7 +48,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
         _inputController.OnLook -= LookAt;
         if (Weapon != null)
         {
-            _inputController.OnAttack -= Weapon.Attack;
+            _inputController.OnAttack -= Weapon.PerformAttack;
         }
         
         _inputController.OnWeaponChoose -= EquipWeapon;
@@ -55,7 +57,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
     private void LookAt(Vector2 target)
     {
         direction.LookAt(gameObject.transform, target);
-        transform.rotation = Quaternion.FromToRotation(Vector2.right, direction.value);
+        transform.rotation = Quaternion.FromToRotation(Vector2.right, direction.Value);
         if(gameObject.transform.rotation.eulerAngles.z <= 90 || gameObject.transform.rotation.eulerAngles.z >= 270)
         {
             if (Weapon != null)
@@ -95,38 +97,49 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
 
     private void EquipWeapon(int weaponNumber) //todo: change attribute to Weapon and create interface IWeaponUser
     {
-        var chosenWeaponSlot = weaponInventory.GetInventorySlots()[weaponNumber];
-        var chosenWeapon = chosenWeaponSlot.Item as InventoryWeaponItem;
-        if (chosenWeapon != null && chosenWeapon.WeaponPrefab.TryGetComponent(out Weapon weaponComponent))
+        if (weaponEquipCooldown == null)
         {
-            if (Weapon != null && _currentSlot != null)
+            weaponEquipCooldown = StartCoroutine(WeaponEquipCooldown());
+            var chosenWeaponSlot = weaponInventory.GetInventorySlots()[weaponNumber];
+            var chosenWeapon = chosenWeaponSlot.Item as InventoryWeaponItem;
+            if (chosenWeapon != null && chosenWeapon.WeaponPrefab.TryGetComponent(out Weapon weaponComponent))
             {
-                UnequipWeapon();
-            }
-            
-            Weapon = Instantiate(chosenWeapon.WeaponPrefab, weaponSlot).GetComponent<Weapon>();
-            if (chosenWeapon is InventoryRangeWeaponItem)
-            {
-                var chosenRangeWeapon = chosenWeapon as InventoryRangeWeaponItem;
-                Weapon.SetUpgradeInventory(chosenRangeWeapon.UpgradeInventory);
-            }
-            
-            _currentSlot = chosenWeaponSlot;
-            _inputController.OnAttack += Weapon.Attack;
-            _currentSlot.OnSlotCleared += UnequipWeapon;
-            if (gameObject.transform.rotation.eulerAngles.z > 90 && gameObject.transform.rotation.eulerAngles.z < 270)
-            {
-                Weapon.SpriteRenderer.flipY = true;
+                if (Weapon != null && _currentSlot != null)
+                {
+                    UnequipWeapon();
+                }
+
+                Weapon = Instantiate(chosenWeapon.WeaponPrefab, weaponSlot).GetComponent<Weapon>();
+                if (chosenWeapon is InventoryRangeWeaponItem)
+                {
+                    var chosenRangeWeapon = chosenWeapon as InventoryRangeWeaponItem;
+                    Weapon.SetUpgradeInventory(chosenRangeWeapon.UpgradeInventory);
+                }
+
+                _currentSlot = chosenWeaponSlot;
+                _inputController.OnAttack += Weapon.PerformAttack;
+                _currentSlot.OnSlotCleared += UnequipWeapon;
+                if (gameObject.transform.rotation.eulerAngles.z > 90 &&
+                    gameObject.transform.rotation.eulerAngles.z < 270)
+                {
+                    Weapon.SpriteRenderer.flipY = true;
+                }
             }
         }
     }
 
     private void UnequipWeapon()
     {
-        _inputController.OnAttack -= Weapon.Attack;
+        _inputController.OnAttack -= Weapon.PerformAttack;
         _currentSlot.OnSlotCleared -= UnequipWeapon;
         Destroy(Weapon.gameObject);
         Weapon = null;
         _currentSlot = null;
+    }
+
+    private IEnumerator WeaponEquipCooldown() //todo: handle with weapon equip cooldown
+    {
+        yield return new WaitForSeconds(0.5f);
+        weaponEquipCooldown = null;
     }
 }

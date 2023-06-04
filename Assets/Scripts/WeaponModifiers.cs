@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponModifiers
 {
     [SerializeField] private float damageModifier = 1;
-    [SerializeField] private float attackSpeedMultiplier = 1;
+    [SerializeField] private float attackSpeedModifier = 1;
     
     public float DamageModifier
     {
@@ -13,9 +13,9 @@ public class WeaponModifiers
         set => damageModifier = value;
     }
 
-    public float AttackSpeedMultiplier
+    public float AttackSpeedModifier
     {
-        get => attackSpeedMultiplier;
-        set => attackSpeedMultiplier = value;
+        get => attackSpeedModifier;
+        set => attackSpeedModifier = value;
     }
 }

@@ -131,10 +131,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 5821f46f71b5be540847d3a8a07ad61b, type: 2}
+  weaponModifiers:
+    damageModifier: 1
+    attackSpeedMultiplier: 1
   spriteRenderer: {fileID: 8347042881440581339}
-  upgradeInventory:
-    slots: []
-  rangeWeaponData: {fileID: 11400000, guid: 832a3f208df6b044aa1ec91d662e26c2, type: 2}
+  upgradesAmount: 2
+  rangeWeaponData: {fileID: 11400000, guid: d7f5452813bab39418a41de214bade66, type: 2}
+  rangeWeaponModifiers:
+    projectileSizeModifier: 1
+    spreadModifier: 1
   projectile: {fileID: 5034615070507311807, guid: c172bdadb14908a46bd0cd103d141ef9, type: 3}
   attackPointTransform: {fileID: 8347042882746481562}
 --- !u!1 &8347042882746481563

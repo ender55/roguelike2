@@ -3,9 +3,6 @@
 [CreateAssetMenu(fileName = "WeaponData", menuName = "SO/Weapon Data/Weapon Data")]
 public class WeaponData : ScriptableObject //todo: clear code
 {
-    //stats
-    [SerializeField] private int upgradesAmount;
-    
     [SerializeField] private Damage baseDamage;
     [SerializeField] private float attackSpeed;
     //[SerializeField] private float energyConsumption;
@@ -21,7 +18,5 @@ public class WeaponData : ScriptableObject //todo: clear code
     //public int CriticalDamageChance => criticalDamageChance;
     //public float CriticalDamageMultiplier => criticalDamageMultiplier;
     //public float AttackRange => attackRange;
-
-    public int UpgradesAmount => upgradesAmount;
     //public float EnergyConsumptionModifier => energyConsumptionModifier;
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 [Serializable]
 public class Movement
 {
-    [SerializeField] private int moveSpeed;
-    [SerializeField] private Rigidbody2D rigidbody2D;
+    [SerializeField] protected int moveSpeed;
+    [SerializeField] protected Rigidbody2D rigidbody2D;
 
     public int MoveSpeed
     {
@@ -18,9 +18,11 @@ public class Movement
     }
 
     public event Action OnMoveSpeedChange;
+    public event Action OnMove;
 
     public virtual void Move(Vector2 moveDirection)
     {
         rigidbody2D.velocity = moveDirection * (MoveSpeed * Time.fixedDeltaTime);
+        OnMove?.Invoke();
     }
 }

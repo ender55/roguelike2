@@ -158,6 +158,17 @@
                 },
                 {
                     "name": "",
+                    "id": "6d1a16a7-1497-4aae-971a-10e3c7738e64",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3317c06e-ba09-497a-98a1-fae8dda785bf",
                     "path": "<Keyboard>/1",
                     "interactions": "",

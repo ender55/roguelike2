@@ -10,5 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 341b5c400856402aa331971b8a49b754, type: 3}
-  m_Name: RangeWeaponData
+  m_Name: ShotgunRangeWeaponData
   m_EditorClassIdentifier: 
+  projectilesPerShot: 1
+  projectileSpeed: 400
+  spread: 7

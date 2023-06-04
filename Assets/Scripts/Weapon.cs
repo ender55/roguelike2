@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +9,12 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
     [SerializeField] protected WeaponData weaponData;
     [SerializeField] protected WeaponModifiers weaponModifiers;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private int upgradesAmount;
     
-    private UpgradeInventory _upgradeInventory; 
-    protected List<Upgrade> _upgrades = new List<Upgrade>();
+    private UpgradeInventory upgradeInventory; 
+    protected List<Upgrade> upgrades = new List<Upgrade>();
+
+    protected Coroutine attackCoroutine;
 
     public WeaponData WeaponData
     {
@@ -21,8 +25,19 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
     public WeaponModifiers WeaponModifiers => weaponModifiers;
 
     public SpriteRenderer SpriteRenderer => spriteRenderer;
-    public UpgradeInventory UpgradeInventory => _upgradeInventory;
-    public List<Upgrade> Upgrades => _upgrades;
+    public UpgradeInventory UpgradeInventory => upgradeInventory;
+    public List<Upgrade> Upgrades => upgrades;
+    public int UpgradesAmount {
+        get 
+        {
+            if (upgradesAmount < 0)
+            {
+                upgradesAmount = 0;
+            }
+
+            return upgradesAmount;
+        }
+    }
 
     public event Action OnAttack;
     public event Action OnAlternativeAttack;
@@ -30,24 +45,45 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
 
     private void OnEnable()
     {
-        if (_upgradeInventory != null)
+        attackCoroutine = StartCoroutine(EquipCooldown());
+        if (upgradeInventory != null)
         {
-            _upgradeInventory.OnInventoryChange += RefreshUpgrades;
+            upgradeInventory.OnInventoryChange += RefreshUpgrades;
         }
     }
 
     private void OnDisable()
     {
-        if (_upgradeInventory != null)
+        if (upgradeInventory != null)
         {
-            _upgradeInventory.OnInventoryChange -= RefreshUpgrades;
+            upgradeInventory.OnInventoryChange -= RefreshUpgrades;
         }
     }
 
-    public virtual void Attack()
+    public void PerformAttack()
     {
-        Debug.Log(weaponModifiers.DamageModifier);
+        if (attackCoroutine == null)
+        {
+            Attack();
+        }
+    }
+
+    protected virtual void Attack()
+    {
+        attackCoroutine = StartCoroutine(AttackCooldown());
         OnAttack?.Invoke();
+    }
+
+    protected IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(100 / (weaponData.AttackSpeed * weaponModifiers.AttackSpeedModifier));
+        attackCoroutine = null;
+    }
+    
+    protected IEnumerator EquipCooldown()
+    {
+        yield return new WaitForSeconds(0.5f);
+        attackCoroutine = null;
     }
 
     public virtual void AlternativeAttack()
@@ -65,20 +101,20 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
 
     public void SetUpgradeInventory(UpgradeInventory inventory)
     {
-        _upgradeInventory = inventory;
-        _upgradeInventory.OnInventoryChange += RefreshUpgrades;
+        upgradeInventory = inventory;
+        upgradeInventory.OnInventoryChange += RefreshUpgrades;
     }
 
     public void RefreshUpgrades()
     {
-        foreach (var upgrade in _upgrades)
+        foreach (var upgrade in upgrades)
         {
             upgrade.Deactivate();
         }
         
-        _upgrades.Clear();
+        upgrades.Clear();
 
-        foreach (var slot in _upgradeInventory.GetInventorySlots())
+        foreach (var slot in upgradeInventory.GetInventorySlots())
         {
             if (slot.Item != null)
             {
@@ -91,17 +127,17 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
     {
         if (upgrade is GeneralWeaponUpgrade weaponUpgrade)
         {
-            _upgrades.Add(weaponUpgrade);
+            upgrades.Add(weaponUpgrade);
             weaponUpgrade.Equip(this);
         }
     }
 
     public void RemoveUpgrade(Upgrade upgrade)
     {
-        if (_upgrades.Contains(upgrade))
+        if (upgrades.Contains(upgrade))
         {
-            _upgrades.Find(item => item == upgrade).Deactivate();
-            _upgrades.Remove(upgrade);
+            upgrades.Find(item => item == upgrade).Deactivate();
+            upgrades.Remove(upgrade);
         }
     }
 }

@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameInput.IUIActions
 {
     private GameInput _gameInput;
+    private Coroutine _attackCoroutine;
     
     public event Action<Vector2> OnMove;
     public event Action<Vector2> OnLook;
@@ -73,7 +75,14 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
 
     void GameInput.IGameplayActions.OnAttack(InputAction.CallbackContext context)
     {
-        OnAttack?.Invoke();
+        if (context.performed)
+        {
+            _attackCoroutine = StartCoroutine(AttackCoroutine());
+        }
+        else if (context.canceled)
+        {
+            StopCoroutine(_attackCoroutine);
+        }
     }
 
     public void OnChooseFirstWeapon(InputAction.CallbackContext context)
@@ -104,5 +113,14 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     public void OnCloseInventory(InputAction.CallbackContext context)
     {
         OnInventoryClose?.Invoke();
+    }
+
+    private IEnumerator AttackCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForEndOfFrame();
+            OnAttack?.Invoke();
+        }
     }
 }
