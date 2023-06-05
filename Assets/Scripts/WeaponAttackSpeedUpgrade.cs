@@ -12,11 +12,11 @@ class WeaponAttackSpeedUpgrade : GeneralWeaponUpgrade
     
     public override void Activate()
     {
-        currentWeapon.WeaponModifiers.AttackSpeedModifier += attackSpeedModifierByRarity[upgradeRarity] + attackSpeedModifierByLevel[currentLevel];
+        currentWeapon.WeaponModifiers.AttackSpeedModifier += attackSpeedModifierByRarity[currentUpgradeRarity] + attackSpeedModifierByLevel[currentUpgradeLevel];
     }
 
     public override void Deactivate()
     {
-        currentWeapon.WeaponModifiers.AttackSpeedModifier -= attackSpeedModifierByRarity[upgradeRarity] + attackSpeedModifierByLevel[currentLevel];
+        currentWeapon.WeaponModifiers.AttackSpeedModifier -= attackSpeedModifierByRarity[currentUpgradeRarity] + attackSpeedModifierByLevel[currentUpgradeLevel];
     }
 }

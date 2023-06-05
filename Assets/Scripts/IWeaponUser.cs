@@ -1,4 +1,4 @@
 ﻿public interface IWeaponUser
 {
-    public Weapon Weapon { get; set; } 
+    public Weapon Weapon { get; } 
 }

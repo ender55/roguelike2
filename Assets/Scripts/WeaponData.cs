@@ -4,16 +4,16 @@
 public class WeaponData : ScriptableObject //todo: clear code
 {
     [SerializeField] private Damage baseDamage;
-    [SerializeField] private float attackSpeed;
-    //[SerializeField] private float energyConsumption;
+    [SerializeField] private int attackSpeed;
+    [SerializeField] private int energyConsumption;
     //[SerializeField] private float knockback;
     //[SerializeField] private int criticalDamageChance;
     //[SerializeField] private float criticalDamageMultiplier;
     //[SerializeField] private float attackRange;
 
     public Damage BaseDamage => baseDamage;
-    public float AttackSpeed => attackSpeed;
-    //public float EnergyConsumption => energyConsumption;
+    public int AttackSpeed => attackSpeed;
+    public int EnergyConsumption => energyConsumption;
     //public float Knockback => knockback;
     //public int CriticalDamageChance => criticalDamageChance;
     //public float CriticalDamageMultiplier => criticalDamageMultiplier;

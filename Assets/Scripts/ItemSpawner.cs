@@ -14,7 +14,7 @@ public class ItemSpawner : MonoBehaviour
         SpawnItem(weaponsList[0], new Vector2(0, -3));
         SpawnItem(weaponsList[1], new Vector2(-3, -3));
         SpawnItem(upgradesList[0], new Vector2(0, +3));
-        SpawnItem(upgradesList[0], new Vector2(+3, +3));
+        SpawnItem(upgradesList[2], new Vector2(+3, +3));
         SpawnItem(upgradesList[1], new Vector2(+6, +3));
     }
 

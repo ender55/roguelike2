@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 341b5c400856402aa331971b8a49b754, type: 3}
-  m_Name: ShotgunRangeWeaponData
+  m_Script: {fileID: 11500000, guid: 5c37456f14fa48b8af1ce24869baedb1, type: 3}
+  m_Name: FireUpgrade
   m_EditorClassIdentifier: 
-  projectilesPerShot: 5
-  projectileSpeed: 350
-  spread: 20
+  itemInfo: {fileID: 0}
+  currentUpgradeRarity: 0
+  currentUpgradeLevel: 0
+  maxLevel: 0
+  burningTimeByRarity:
+    _serializedList: []
+  burningDamageByLevel:
+    _serializedList: []

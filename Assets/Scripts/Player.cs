@@ -1,23 +1,24 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
+public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, IEnergyUser, IWeaponUser
 {
+    [SerializeField] private Energy energy;
     [SerializeField] private Transform weaponSlot;
     [SerializeField] private WeaponInventory weaponInventory;
     [SerializeField] private UpgradeInventory upgradeInventory;
 
     private InputController _inputController;
     private InventorySlot _currentSlot;
-    private Coroutine weaponEquipCooldown; //todo: rework using coroutine manager
+    private Coroutine _weaponEquipCooldown; //todo: rework using coroutine manager
 
+    public Energy Energy => energy;
     public UpgradeInventory UpgradeInventory => upgradeInventory;
     public WeaponInventory WeaponInventory => weaponInventory;
     public InputController InputController => _inputController;
 
     public Weapon Weapon { get; private set; }
     
-
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
@@ -30,8 +31,10 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
         }
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        energy.StartRegenerateEnergy();
         _inputController.OnMove += movement.Move;
         _inputController.OnLook += LookAt;
         if (Weapon != null)
@@ -42,8 +45,10 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
         _inputController.OnWeaponChoose += EquipWeapon;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        energy.StopRegenerateEnergy();
+        base.OnDisable();
         _inputController.OnMove -= movement.Move;
         _inputController.OnLook -= LookAt;
         if (Weapon != null)
@@ -97,9 +102,9 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
 
     private void EquipWeapon(int weaponNumber) //todo: change attribute to Weapon and create interface IWeaponUser
     {
-        if (weaponEquipCooldown == null)
+        if (_weaponEquipCooldown == null)
         {
-            weaponEquipCooldown = StartCoroutine(WeaponEquipCooldown());
+            _weaponEquipCooldown = StartCoroutine(WeaponEquipCooldown());
             var chosenWeaponSlot = weaponInventory.GetInventorySlots()[weaponNumber];
             var chosenWeapon = chosenWeaponSlot.Item as InventoryWeaponItem;
             if (chosenWeapon != null && chosenWeapon.WeaponPrefab.TryGetComponent(out Weapon weaponComponent))
@@ -110,6 +115,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
                 }
 
                 Weapon = Instantiate(chosenWeapon.WeaponPrefab, weaponSlot).GetComponent<Weapon>();
+                Weapon.EnergySource = this;
                 if (chosenWeapon is InventoryRangeWeaponItem)
                 {
                     var chosenRangeWeapon = chosenWeapon as InventoryRangeWeaponItem;
@@ -118,7 +124,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
 
                 _currentSlot = chosenWeaponSlot;
                 _inputController.OnAttack += Weapon.PerformAttack;
-                _currentSlot.OnSlotCleared += UnequipWeapon;
+                _currentSlot.OnSlotChanged += UnequipWeapon;
                 if (gameObject.transform.rotation.eulerAngles.z > 90 &&
                     gameObject.transform.rotation.eulerAngles.z < 270)
                 {
@@ -131,7 +137,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
     private void UnequipWeapon()
     {
         _inputController.OnAttack -= Weapon.PerformAttack;
-        _currentSlot.OnSlotCleared -= UnequipWeapon;
+        _currentSlot.OnSlotChanged -= UnequipWeapon;
         Destroy(Weapon.gameObject);
         Weapon = null;
         _currentSlot = null;
@@ -140,6 +146,6 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler
     private IEnumerator WeaponEquipCooldown() //todo: handle with weapon equip cooldown
     {
         yield return new WaitForSeconds(0.5f);
-        weaponEquipCooldown = null;
+        _weaponEquipCooldown = null;
     }
 }

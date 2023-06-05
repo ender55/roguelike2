@@ -7,6 +7,12 @@ public class Damage
     [SerializeField] private DamageType damageType;
     [SerializeField] private int damageValue;
 
+    public Damage(DamageType damageType, int damageValue)
+    {
+        this.damageType = damageType;
+        this.damageValue = damageValue;
+    }
+    
     public DamageType DamageType
     {
         get => damageType;
@@ -17,10 +23,5 @@ public class Damage
     {
         get => damageValue;
         set => damageValue = value;
-    }
-
-    public void ApplyDamage(IDamageable damageable)
-    {
-
     }
 }

@@ -19,24 +19,24 @@ MonoBehaviour:
   damageModifierByRarity:
     _serializedList:
     - Key: 0
-      Value: 0.05
-    - Key: 1
       Value: 0.1
-    - Key: 2
-      Value: 0.15
-    - Key: 3
+    - Key: 1
       Value: 0.2
+    - Key: 2
+      Value: 0.3
+    - Key: 3
+      Value: 0.4
     - Key: 4
-      Value: 0.25
+      Value: 0.5
   damageModifierByLevel:
     _serializedList:
     - Key: 1
-      Value: 0.05
-    - Key: 2
       Value: 0.1
-    - Key: 3
-      Value: 0.15
-    - Key: 4
+    - Key: 2
       Value: 0.2
+    - Key: 3
+      Value: 0.3
+    - Key: 4
+      Value: 0.4
     - Key: 5
-      Value: 0.25
+      Value: 0.5

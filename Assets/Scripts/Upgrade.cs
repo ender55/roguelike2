@@ -4,30 +4,30 @@ using UnityEngine;
 [Serializable]
 public abstract class Upgrade : InventoryItem
 {
-    [SerializeField] protected UpgradeRarity upgradeRarity;
-    [SerializeField] protected int currentLevel;
+    [SerializeField] protected UpgradeRarity currentUpgradeRarity;
+    [SerializeField] protected int currentUpgradeLevel;
     [SerializeField] protected int maxLevel;
 
-    public UpgradeRarity UpgradeRarity
+    public UpgradeRarity CurrentUpgradeRarity
     {
-        get => upgradeRarity;
+        get => currentUpgradeRarity;
         set
         {
             Deactivate();
-            upgradeRarity = value;
+            currentUpgradeRarity = value;
             Activate();
         }
     }
     
-    public int CurrentLevel
+    public int CurrentUpgradeLevel
     {
-        get => currentLevel;
+        get => currentUpgradeLevel;
         set
         {
             if (value > 0 && value <= maxLevel)
             {
                 Deactivate();
-                currentLevel = value;
+                currentUpgradeLevel = value;
                 Activate();
             }
         }

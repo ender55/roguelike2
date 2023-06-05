@@ -4,7 +4,7 @@ using UnityEngine;
 public sealed class CoroutineManager : MonoBehaviour
 {
     private static CoroutineManager m_instance;
-    private static CoroutineManager instance
+    public static CoroutineManager instance
     {
         get
         {

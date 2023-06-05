@@ -1,18 +1,22 @@
-﻿using AYellowpaper.SerializedCollections;
+﻿using System;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-public class Unit : MonoBehaviour, IMovable, IDamageable, IDirectable
+public class Unit : MonoBehaviour, IMovable, IDamageable, IDirectable, IStateHandler
 {
     [SerializeField] protected Health health;
     [SerializeField] protected SerializedDictionary<DamageType, int> damageResistances;
     [SerializeField] protected Movement movement;
     [SerializeField] protected Direction direction;
-    
+
+    private Coroutine _healthRegenerationCoroutine;
+
     public Health Health => health;
     public SerializedDictionary<DamageType, int> DamageResistances => damageResistances;
     public Movement Movement => movement;
     public Direction Direction => direction;
-    
+    public StateMachine StateMachine { get; } = new StateMachine();
+
     public void TakeDamage(Damage damage)
     {
         var resistance = GetResistance(damage.DamageType);
@@ -26,5 +30,15 @@ public class Unit : MonoBehaviour, IMovable, IDamageable, IDirectable
             return value;
         }
         return 0;
+    }
+
+    protected virtual void OnEnable()
+    {
+        Health.StartRegenerateHp();
+    }
+
+    protected virtual void OnDisable()
+    {
+        Health.StopRegenerateHp();
     }
 }

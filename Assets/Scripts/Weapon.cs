@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TNRD;
 using UnityEngine;
 
 [Serializable]
-public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
+public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable, IEnergyConsumer
 {
     [SerializeField] protected WeaponData weaponData;
     [SerializeField] protected WeaponModifiers weaponModifiers;
@@ -21,9 +22,14 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
         get => weaponData;
         set => weaponData = value;
     }
+
+    public IEnergyUser EnergySource
+    {
+        get;
+        set;
+    }
     
     public WeaponModifiers WeaponModifiers => weaponModifiers;
-
     public SpriteRenderer SpriteRenderer => spriteRenderer;
     public UpgradeInventory UpgradeInventory => upgradeInventory;
     public List<Upgrade> Upgrades => upgrades;
@@ -54,6 +60,11 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
 
     private void OnDisable()
     {
+        foreach (var upgrade in upgrades)
+        {
+            upgrade.Deactivate();
+        }
+        
         if (upgradeInventory != null)
         {
             upgradeInventory.OnInventoryChange -= RefreshUpgrades;
@@ -62,7 +73,7 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
 
     public void PerformAttack()
     {
-        if (attackCoroutine == null)
+        if (attackCoroutine == null && EnergySource.Energy.CurrentEnergy - weaponData.EnergyConsumption >= 0)
         {
             Attack();
         }
@@ -70,6 +81,7 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
 
     protected virtual void Attack()
     {
+        EnergySource.Energy.ChangeCurrentEnergy(-weaponData.EnergyConsumption);
         attackCoroutine = StartCoroutine(AttackCooldown());
         OnAttack?.Invoke();
     }
@@ -93,7 +105,7 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
 
     protected virtual void ApplyDamage(IDamageable damageable)
     {
-        Damage tempDamage = weaponData.BaseDamage;
+        Damage tempDamage = new Damage(weaponData.BaseDamage.DamageType, weaponData.BaseDamage.DamageValue);
         tempDamage.DamageValue = (int)(tempDamage.DamageValue * weaponModifiers.DamageModifier);
         damageable.TakeDamage(tempDamage);
         OnHit?.Invoke(damageable);
@@ -102,6 +114,7 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable
     public void SetUpgradeInventory(UpgradeInventory inventory)
     {
         upgradeInventory = inventory;
+        RefreshUpgrades();
         upgradeInventory.OnInventoryChange += RefreshUpgrades;
     }
 
