@@ -15,5 +15,5 @@ MonoBehaviour:
   baseDamage:
     damageType: 0
     damageValue: 5
-  attackSpeed: 200
-  energyConsumption: 15
+  attackSpeed: 100
+  energyConsumption: 12
