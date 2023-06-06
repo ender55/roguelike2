@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AttackUpgrade
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: adc901988a8d45e468017b03d87db081, type: 2}
-  upgradeRarity: 0
-  currentLevel: 1
+  currentUpgradeRarity: 0
+  currentUpgradeLevel: 1
   maxLevel: 5
   damageModifierByRarity:
     _serializedList:

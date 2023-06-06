@@ -91,7 +91,7 @@ public class Health
         OnMaxHpChange?.Invoke();
     }
 
-    private IEnumerator RegenerateHp()
+    private IEnumerator RegenerateHp() //todo: maybe should do this using MonoBehaviour
     {
         while(true)
         {

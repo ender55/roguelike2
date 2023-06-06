@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PistolRangeWeaponData
   m_EditorClassIdentifier: 
   projectilesPerShot: 1
-  projectileSpeed: 400
+  projectileSpeed: 350
   spread: 7

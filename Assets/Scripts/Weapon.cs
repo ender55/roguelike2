@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using TNRD;
 using UnityEngine;
 
 [Serializable]
@@ -73,7 +72,7 @@ public abstract class Weapon : MonoBehaviour, IUpgradeCollector, IUpgradable, IE
 
     public void PerformAttack()
     {
-        if (attackCoroutine == null && EnergySource.Energy.CurrentEnergy - weaponData.EnergyConsumption >= 0)
+        if (attackCoroutine == null && EnergySource != null && EnergySource.Energy.CurrentEnergy - weaponData.EnergyConsumption >= 0)
         {
             Attack();
         }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e18efbe1816e4fc08a7142560eb8a58a, type: 3}
   m_Name: ShotgunData
   m_EditorClassIdentifier: 
-  upgradesAmount: 2
   baseDamage:
     damageType: 0
-    damageValue: 10
-  attackSpeed: 50
+    damageValue: 5
+  attackSpeed: 200
+  energyConsumption: 15

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b300775d4c894e1e909f0a25fd4a0943, type: 3}
   m_Name: FireUpgradeInfo
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 158d7d7db0aa95c40997d6f8685bf67e, type: 3}

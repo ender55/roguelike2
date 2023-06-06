@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage:
     damageType: 0
-    damageValue: 30
-  attackSpeed: 400
+    damageValue: 10
+  attackSpeed: 350
+  energyConsumption: 5
