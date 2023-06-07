@@ -31,11 +31,16 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
         }
     }
 
+    private void FixedUpdate()
+    {
+        movement.Move();
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
         energy.StartRegenerateEnergy();
-        _inputController.OnMove += movement.Move;
+        _inputController.OnMove += movement.SetMoveDirection;
         _inputController.OnLook += LookAt;
         if (Weapon != null)
         {
@@ -49,7 +54,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
     {
         energy.StopRegenerateEnergy();
         base.OnDisable();
-        _inputController.OnMove -= movement.Move;
+        _inputController.OnMove -= movement.SetMoveDirection;
         _inputController.OnLook -= LookAt;
         if (Weapon != null)
         {
@@ -100,7 +105,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
         }
     }
 
-    private void EquipWeapon(int weaponNumber) //todo: change attribute to Weapon and create interface IWeaponUser
+    private void EquipWeapon(int weaponNumber) //todo: change attribute to Weapon
     {
         if (_weaponEquipCooldown == null)
         {
@@ -143,7 +148,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
         _currentSlot = null;
     }
 
-    private IEnumerator WeaponEquipCooldown() //todo: handle with weapon equip cooldown
+    private IEnumerator WeaponEquipCooldown() //todo: handle with weapon equip cooldown using coroutine for cooldown
     {
         yield return new WaitForSeconds(0.5f);
         _weaponEquipCooldown = null;

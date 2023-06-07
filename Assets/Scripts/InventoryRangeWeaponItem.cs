@@ -5,9 +5,6 @@ public class InventoryRangeWeaponItem : InventoryWeaponItem
 {
     public override void Awake()
     {
-        if (weaponPrefab.TryGetComponent(out Weapon weapon))
-        {
-            upgradeInventory = new RangeWeaponUpgradeInventory(weapon.UpgradesAmount);
-        }
+        upgradeInventory = new RangeWeaponUpgradeInventory(weaponPrefab.UpgradesAmount);
     }
 }

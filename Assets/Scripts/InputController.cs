@@ -7,7 +7,7 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
 {
     private GameInput _gameInput;
     private Coroutine _attackCoroutine;
-    
+
     public event Action<Vector2> OnMove;
     public event Action<Vector2> OnLook;
     public event Action OnAttack;

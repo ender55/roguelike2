@@ -2,7 +2,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class ItemSpawner : MonoBehaviour
+public class ItemSpawner : MonoBehaviour //todo: split spawner and dropper
 {
     [SerializeField] private PickupItem pickupItemPrefab;
     [SerializeField] private new Transform transform;
@@ -18,9 +18,9 @@ public class ItemSpawner : MonoBehaviour
         SpawnItem(upgradesList[1], new Vector2(+6, +3));
     }
 
-    public void SpawnItem(InventoryItem item, Vector2 positionOffset)
+    public void SpawnItem(InventoryItem item, Vector2 position)
     {
-        var tempItem = Instantiate(pickupItemPrefab, (Vector2)transform.position + positionOffset, quaternion.identity);
+        var tempItem = Instantiate(pickupItemPrefab, position, quaternion.identity);
         item.Awake();
         tempItem.SetItem(item);
     }
@@ -29,5 +29,14 @@ public class ItemSpawner : MonoBehaviour
     {
         var tempItem = Instantiate(pickupItemPrefab, transform.position, quaternion.identity);
         tempItem.SetItem(item);
+    }
+
+    public void SpawnRandomUpgrade(Vector2 position)
+    {
+        if(upgradesList.Count > 0)
+        {
+            var randomItem = upgradesList[UnityEngine.Random.Range(0, upgradesList.Count)];
+            SpawnItem(randomItem, position);
+        }
     }
 }

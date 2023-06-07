@@ -2,9 +2,9 @@
 
 public abstract class InventoryWeaponItem : InventoryItem, IUpgradeCollector
 {
-    [SerializeField] protected GameObject weaponPrefab; //todo: add check for weapon component
+    [SerializeField] protected Weapon weaponPrefab;
     protected UpgradeInventory upgradeInventory;
     
-    public GameObject WeaponPrefab => weaponPrefab;
+    public Weapon WeaponPrefab => weaponPrefab;
     public UpgradeInventory UpgradeInventory => upgradeInventory;
 }

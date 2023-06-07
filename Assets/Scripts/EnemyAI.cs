@@ -35,7 +35,7 @@ public class EnemyAI
         }
     }
     
-    public Vector2 CalculatePath() //todo: check this method
+    public Vector2 CalculatePath()
     {
         if (path == null)
         {
