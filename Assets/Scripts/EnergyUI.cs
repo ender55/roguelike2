@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EnergyUI : MonoBehaviour
 {
-    [SerializeField] private SerializableInterface<IEnergyUser> energyUser;
+    [SerializeField] private SerializableInterface<IEnergyUser> energyUser; //todo: inject
     [SerializeField] private Slider energySlider;
 
     private void OnEnable()

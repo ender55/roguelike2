@@ -39,6 +39,7 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
     {
         Slot = slot;
         Slot.OnSlotChanged += Refresh;
+        Refresh();
     }
     
     public void OnDrop(PointerEventData eventData)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InventoryUIController : MonoBehaviour
 {
-    [SerializeField] private SerializableInterface<IInputHandler> inputHandler;
+    [SerializeField] private SerializableInterface<IInputHandler> inputHandler; //todo: inject
     [SerializeField] private GameObject weaponInventory;
 
     private InputController _inputController;

@@ -4,8 +4,8 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] protected List<InventorySlotUI> slotsUI;
-    [SerializeField] private ItemSpawner itemSpawner;
-    
+    [SerializeField] private ItemSpawner itemSpawner; //todo: inject
+
     public Inventory Inventory { get; protected set; }
     public ItemSpawner ItemSpawner => itemSpawner;
 
@@ -18,8 +18,8 @@ public class InventoryUI : MonoBehaviour
             {
                 if (i < Inventory.Capacity)
                 {
-                    slotsUI[i].gameObject.SetActive(true);
                     slotsUI[i].SetSlot(slots[i]);
+                    slotsUI[i].gameObject.SetActive(true);
                 }
                 else
                 {

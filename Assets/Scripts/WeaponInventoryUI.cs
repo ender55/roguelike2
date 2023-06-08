@@ -3,7 +3,7 @@ using UnityEngine;
 
 class WeaponInventoryUI : InventoryUI
 {
-    [SerializeField] private SerializableInterface<IWeaponCollector> weaponCollector;
+    [SerializeField] private SerializableInterface<IWeaponCollector> weaponCollector; //todo: inject
 
     protected override void Start()
     {

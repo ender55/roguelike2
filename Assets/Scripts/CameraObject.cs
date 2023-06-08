@@ -4,7 +4,7 @@ public class CameraObject : MonoBehaviour, IMovable, IDirectable
 {
     [SerializeField] private Movement movement = new LerpMovement();
     [SerializeField] private Direction direction;
-    [SerializeField] private Unit target;
+    [SerializeField] private Unit target; //todo: inject
 
     public Movement Movement => movement;
     public Direction Direction => direction;

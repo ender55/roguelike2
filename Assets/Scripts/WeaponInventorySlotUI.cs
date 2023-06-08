@@ -33,6 +33,7 @@ class WeaponInventorySlotUI : InventorySlotUI
     {
         if (upgradeInventoryUI != null)
         {
+            //Debug.Log();
             if (Slot.Item == null)
             {
                 upgradeInventoryUI.SetCollector(null);

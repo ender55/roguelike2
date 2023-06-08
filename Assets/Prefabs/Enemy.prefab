@@ -202,7 +202,7 @@ MonoBehaviour:
     rigidbody2d: {fileID: 5555178683683406360}
     nextWaypointDistance: 0.5
   itemSpawner: {fileID: 0}
-  dropChance: 5
+  dropChance: 25
 --- !u!114 &5555178683683406436
 MonoBehaviour:
   m_ObjectHideFlags: 0

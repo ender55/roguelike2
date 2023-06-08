@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour //todo: split spawner and dropper
 {
     [SerializeField] private PickupItem pickupItemPrefab;
-    [SerializeField] private new Transform transform;
+    [SerializeField] private new Transform transform; //todo: inject
     [SerializeField] private List<Upgrade> upgradesList;
     [SerializeField] private List<InventoryWeaponItem> weaponsList;
 
@@ -13,9 +13,6 @@ public class ItemSpawner : MonoBehaviour //todo: split spawner and dropper
     {
         SpawnItem(weaponsList[0], new Vector2(0, -3));
         SpawnItem(weaponsList[1], new Vector2(-3, -3));
-        SpawnItem(upgradesList[0], new Vector2(0, +3));
-        SpawnItem(upgradesList[2], new Vector2(+3, +3));
-        SpawnItem(upgradesList[1], new Vector2(+6, +3));
     }
 
     public void SpawnItem(InventoryItem item, Vector2 position)

@@ -1,9 +1,9 @@
 ﻿using TNRD;
 using UnityEngine;
 
-class UpgradeInventoryUI : InventoryUI
+public class UpgradeInventoryUI : InventoryUI //todo: make PlayerUpgradeInventoryUI
 {
-    [SerializeField] private SerializableInterface<IUpgradeCollector> upgradeCollector;
+    [SerializeField] private SerializableInterface<IUpgradeCollector> upgradeCollector; //todo: inject
 
     protected override void Start()
     {

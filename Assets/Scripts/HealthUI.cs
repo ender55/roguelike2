@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
-    [SerializeField] private SerializableInterface<IDamageable> healthUser;
+    [SerializeField] private SerializableInterface<IDamageable> healthUser; //todo: inject
     [SerializeField] private Slider healthSlider; 
     
     private void OnEnable()

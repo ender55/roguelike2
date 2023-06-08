@@ -4,9 +4,10 @@ using UnityEngine;
 public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, IEnergyUser, IWeaponUser
 {
     [SerializeField] private Energy energy;
-    [SerializeField] private Transform weaponSlot;
+    [SerializeField] private Transform weaponSlot; //todo: maybe should move to IWeaponUser
     [SerializeField] private WeaponInventory weaponInventory;
     [SerializeField] private UpgradeInventory upgradeInventory;
+    [SerializeField] private InventoryWeaponItem starterWeapon;
 
     private InputController _inputController;
     private InventorySlot _currentSlot;
@@ -25,6 +26,12 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
         _inputController.SetActionMap("Gameplay");
         upgradeInventory = new UpgradeInventory(10);
         weaponInventory = new WeaponInventory(4);
+       
+    }
+
+    private void Start()
+    {
+        weaponInventory.TryAddItem(starterWeapon);
         if (weaponInventory.GetInventorySlots()[0].Item != null)
         {
             EquipWeapon(0);

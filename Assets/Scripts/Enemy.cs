@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : Unit, IItemDropper
 {
-    [SerializeField] private Player player;
+    [SerializeField] private Player player; //todo: inject
     [SerializeField] private EnemyAI enemyAI;
-    [SerializeField] private ItemSpawner itemSpawner;
+    [SerializeField] private ItemSpawner itemSpawner; //todo: inject
     [Range(0f, 100f)][SerializeField] private float dropChance;
 
     private Coroutine coroutine;
@@ -33,8 +32,7 @@ public class Enemy : Unit, IItemDropper
         }
 
         direction.SetDirection(enemyAI.CalculatePath());
-        Debug.Log(direction.Value);
-        transform.rotation = Quaternion.FromToRotation(Vector2.right, direction.Value);
+        transform.rotation = Quaternion.FromToRotation(Vector2.right, direction.Value); //rework when will be sprites
     }
 
     private void FixedUpdate()
