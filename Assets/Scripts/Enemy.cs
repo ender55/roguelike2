@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Enemy : Unit, IItemDropper
 {
     [SerializeField] private Player player; //todo: inject
     [SerializeField] private EnemyAI enemyAI;
-    [SerializeField] private ItemSpawner itemSpawner; //todo: inject
     [Range(0f, 100f)][SerializeField] private float dropChance;
+
+    [SerializeField] private ItemSpawner itemSpawner;
+    [SerializeField] private ItemList itemList; //todo: inject
 
     private Coroutine coroutine;
 
@@ -17,6 +20,7 @@ public class Enemy : Unit, IItemDropper
 
     private IEnumerator Start()
     {
+        itemSpawner = Instantiate(itemSpawner, gameObject.transform);
         yield return new WaitForSeconds(1f);
         if (player)
         {
@@ -26,7 +30,7 @@ public class Enemy : Unit, IItemDropper
 
     private void Update()
     {
-        if(coroutine == null)
+        if (coroutine == null)
         {
             coroutine = StartCoroutine(UpdatePath());
         }
@@ -49,26 +53,24 @@ public class Enemy : Unit, IItemDropper
 
     private void OnCollisionStay2D(Collision2D collision) //todo: remove when enemy starts using weapons
     {
-        if(collision.gameObject.TryGetComponent(out Player player))
+        if (collision.gameObject.TryGetComponent(out Player player))
         {
             player.TakeDamage(new Damage(DamageType.Physical, 10));
         }
     }
 
-    public void DropItem()
+    public void DropItem(InventoryItem item)
     {
-        if(itemSpawner != null)
+        if (UnityEngine.Random.Range(0f, 100f) <= dropChance)
         {
-            if(UnityEngine.Random.Range(0f, 100f) <= dropChance)
-            {
-                itemSpawner.SpawnRandomUpgrade(transform.position);
-            }
+            itemSpawner.SpawnItem(item, transform.position);
         }
+
     }
 
     protected override void Death()
     {
-        DropItem();
+        DropItem(itemList.GetRandomUpgrade());
         base.Death();
     }
 }

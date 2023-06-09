@@ -2,38 +2,23 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class ItemSpawner : MonoBehaviour //todo: split spawner and dropper
+[CreateAssetMenu(fileName = "ItemSpawner", menuName = "SO/Item Spawner")]
+public class ItemSpawner : ScriptableObject
 {
     [SerializeField] private PickupItem pickupItemPrefab;
-    [SerializeField] private new Transform transform; //todo: inject
-    [SerializeField] private List<Upgrade> upgradesList;
-    [SerializeField] private List<InventoryWeaponItem> weaponsList;
 
-    private void Start()
-    {
-        SpawnItem(weaponsList[0], new Vector2(0, -3));
-        SpawnItem(weaponsList[1], new Vector2(-3, -3));
-    }
+    private Transform objectTransform;
 
     public void SpawnItem(InventoryItem item, Vector2 position)
     {
         var tempItem = Instantiate(pickupItemPrefab, position, quaternion.identity);
-        item.Awake();
         tempItem.SetItem(item);
     }
 
-    public void SpawnItem(InventoryItem item)
+    public void InitialSpawnItem(InventoryItem item, Vector2 position)
     {
-        var tempItem = Instantiate(pickupItemPrefab, transform.position, quaternion.identity);
+        var tempItem = Instantiate(pickupItemPrefab, position, quaternion.identity);
         tempItem.SetItem(item);
-    }
-
-    public void SpawnRandomUpgrade(Vector2 position)
-    {
-        if(upgradesList.Count > 0)
-        {
-            var randomItem = upgradesList[UnityEngine.Random.Range(0, upgradesList.Count)];
-            SpawnItem(randomItem, position);
-        }
+        tempItem.Item.Awake();
     }
 }

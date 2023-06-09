@@ -2,7 +2,5 @@
 {
     public ItemSpawner ItemSpawner { get; }
 
-    public float DropChance { get; }
-
-    public void DropItem();
+    public void DropItem(InventoryItem item);
 }

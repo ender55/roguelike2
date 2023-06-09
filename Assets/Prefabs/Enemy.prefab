@@ -201,8 +201,9 @@ MonoBehaviour:
     seeker: {fileID: 5555178683683406436}
     rigidbody2d: {fileID: 5555178683683406360}
     nextWaypointDistance: 0.5
-  itemSpawner: {fileID: 0}
   dropChance: 25
+  itemSpawner: {fileID: 11400000, guid: 5b24b3fefa116a144ada5dc9c0c7726c, type: 2}
+  itemList: {fileID: 11400000, guid: 170688a74bbef49428f680dcc47c4985, type: 2}
 --- !u!114 &5555178683683406436
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, IEnergyUser, IWeaponUser
+public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, IEnergyUser, IWeaponUser, IItemDropper
 {
     [SerializeField] private Energy energy;
     [SerializeField] private Transform weaponSlot; //todo: maybe should move to IWeaponUser
     [SerializeField] private WeaponInventory weaponInventory;
     [SerializeField] private UpgradeInventory upgradeInventory;
     [SerializeField] private InventoryWeaponItem starterWeapon;
+    [SerializeField] private ItemSpawner itemSpawner;
 
     private InputController _inputController;
     private InventorySlot _currentSlot;
@@ -19,14 +20,16 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
     public InputController InputController => _inputController;
 
     public Weapon Weapon { get; private set; }
-    
+
+    public ItemSpawner ItemSpawner => itemSpawner;
+
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
         _inputController.SetActionMap("Gameplay");
         upgradeInventory = new UpgradeInventory(10);
         weaponInventory = new WeaponInventory(4);
-       
+        itemSpawner = Instantiate(itemSpawner, gameObject.transform);
     }
 
     private void Start()
@@ -34,6 +37,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
         weaponInventory.TryAddItem(starterWeapon);
         if (weaponInventory.GetInventorySlots()[0].Item != null)
         {
+            weaponInventory.GetInventorySlots()[0].Item.Awake();
             EquipWeapon(0);
         }
     }
@@ -159,5 +163,10 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
     {
         yield return new WaitForSeconds(0.5f);
         _weaponEquipCooldown = null;
+    }
+
+    public void DropItem(InventoryItem item)
+    {
+        itemSpawner.SpawnItem(item, transform.position);
     }
 }

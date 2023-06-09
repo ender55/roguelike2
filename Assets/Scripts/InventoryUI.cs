@@ -4,10 +4,10 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] protected List<InventorySlotUI> slotsUI;
-    [SerializeField] private ItemSpawner itemSpawner; //todo: inject
+    [SerializeField] private Player player;
 
     public Inventory Inventory { get; protected set; }
-    public ItemSpawner ItemSpawner => itemSpawner;
+    public Player Player => player;
 
     protected virtual void Start()
     {

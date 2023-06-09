@@ -66,7 +66,7 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
 
     private void DropItem()
     {
-        _inventoryUI.ItemSpawner.SpawnItem(itemUI.Item);
+        _inventoryUI.Player.DropItem(itemUI.Item);
         Slot.Clear();
     }
 }
