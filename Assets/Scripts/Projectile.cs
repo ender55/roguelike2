@@ -23,11 +23,23 @@ public class Projectile : MonoBehaviour, IMovable, IDirectable
         movement.Move(direction.Value);
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    //private void OnTriggerEnter2D(Collider2D col)
+    //{
+    //    if (col.gameObject.TryGetComponent(out IDamageable damageable))
+    //    {
+    //        OnHit?.Invoke(damageable);
+    //    }
+    //    Destroy(gameObject);
+    //}
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (col.gameObject.TryGetComponent(out IDamageable damageable))
+        if (collision.gameObject.TryGetComponent(out IDamageable damageable))
         {
             OnHit?.Invoke(damageable);
+        }
+        if (!collision.gameObject.TryGetComponent(out Projectile projectile))
+        {
             Destroy(gameObject);
         }
     }

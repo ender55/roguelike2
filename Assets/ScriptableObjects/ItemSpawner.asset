@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc844e69f0a44a1b87ab3779f8f5440c, type: 3}
   m_Name: ItemSpawner
   m_EditorClassIdentifier: 
-  pickupItemPrefab: {fileID: 0}
+  pickupItemPrefab: {fileID: 3637553869484498545, guid: 69ef9811a8189b84cbb62c4e10b48942, type: 3}

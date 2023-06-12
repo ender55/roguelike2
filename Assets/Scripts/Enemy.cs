@@ -12,16 +12,18 @@ public class Enemy : Unit, IItemDropper
     [SerializeField] private ItemSpawner itemSpawner;
     [SerializeField] private ItemList itemList; //todo: inject
 
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
     private Coroutine coroutine;
 
     public ItemSpawner ItemSpawner => itemSpawner;
 
     public float DropChance => dropChance;
 
-    private IEnumerator Start()
+    private void Start()
     {
         itemSpawner = Instantiate(itemSpawner, gameObject.transform);
-        yield return new WaitForSeconds(1f);
+        player = GameObject.FindObjectOfType<Player>();
         if (player)
         {
             enemyAI.Initialize(player.transform);
@@ -30,25 +32,21 @@ public class Enemy : Unit, IItemDropper
 
     private void Update()
     {
-        if (coroutine == null)
-        {
-            coroutine = StartCoroutine(UpdatePath());
-        }
-
+        enemyAI.UpdatePath();
         direction.SetDirection(enemyAI.CalculatePath());
-        transform.rotation = Quaternion.FromToRotation(Vector2.right, direction.Value); //rework when will be sprites
+        if (direction.Value.x >= 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
     }
 
     private void FixedUpdate()
     {
         movement.Move(direction.Value);
-    }
-
-    private IEnumerator UpdatePath()
-    {
-        enemyAI.UpdatePath();
-        yield return new WaitForSeconds(0.5f);
-        coroutine = null;
     }
 
     private void OnCollisionStay2D(Collision2D collision) //todo: remove when enemy starts using weapons

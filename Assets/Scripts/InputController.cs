@@ -14,6 +14,8 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     public event Action<int> OnWeaponChoose;
     public event Action OnInventoryOpen;
     public event Action OnInventoryClose;
+    public event Action OnMenuOpen;
+    public event Action OnMenuClose;
 
     private void Awake()
     {
@@ -122,5 +124,15 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
             yield return new WaitForEndOfFrame();
             OnAttack?.Invoke();
         }
+    }
+
+    void GameInput.IGameplayActions.OnOpenMenu(InputAction.CallbackContext context)
+    {
+        OnMenuOpen?.Invoke();  
+    }
+
+    void GameInput.IUIActions.OnCloseMenu(InputAction.CallbackContext context)
+    {
+        OnMenuClose?.Invoke();
     }
 }

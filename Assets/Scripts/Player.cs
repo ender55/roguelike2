@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, IEnergyUser, IWeaponUser, IItemDropper
@@ -7,8 +9,11 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
     [SerializeField] private Transform weaponSlot; //todo: maybe should move to IWeaponUser
     [SerializeField] private WeaponInventory weaponInventory;
     [SerializeField] private UpgradeInventory upgradeInventory;
-    [SerializeField] private InventoryWeaponItem starterWeapon;
+    [SerializeField] private List<InventoryWeaponItem> starterWeapons;
     [SerializeField] private ItemSpawner itemSpawner;
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private InputController _inputController;
     private InventorySlot _currentSlot;
@@ -23,6 +28,8 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
 
     public ItemSpawner ItemSpawner => itemSpawner;
 
+    public static event Action OnGameOver;
+
     private void Awake()
     {
         _inputController = gameObject.AddComponent<InputController>();
@@ -34,10 +41,14 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
 
     private void Start()
     {
-        weaponInventory.TryAddItem(starterWeapon);
+        foreach(InventoryWeaponItem weapon in starterWeapons)
+        {
+            weapon.Awake();
+            weaponInventory.TryAddItem(weapon);
+        }
         if (weaponInventory.GetInventorySlots()[0].Item != null)
         {
-            weaponInventory.GetInventorySlots()[0].Item.Awake();
+            //weaponInventory.GetInventorySlots()[0].Item.Awake();
             EquipWeapon(0);
         }
     }
@@ -52,6 +63,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
         base.OnEnable();
         energy.StartRegenerateEnergy();
         _inputController.OnMove += movement.SetMoveDirection;
+        _inputController.OnMove += SetAnimator;
         _inputController.OnLook += LookAt;
         if (Weapon != null)
         {
@@ -66,6 +78,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
         energy.StopRegenerateEnergy();
         base.OnDisable();
         _inputController.OnMove -= movement.SetMoveDirection;
+        _inputController.OnMove -= SetAnimator;
         _inputController.OnLook -= LookAt;
         if (Weapon != null)
         {
@@ -78,9 +91,10 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
     private void LookAt(Vector2 target)
     {
         direction.LookAt(gameObject.transform, target);
-        transform.rotation = Quaternion.FromToRotation(Vector2.right, direction.Value);
-        if(gameObject.transform.rotation.eulerAngles.z <= 90 || gameObject.transform.rotation.eulerAngles.z >= 270)
+        weaponSlot.parent.rotation = Quaternion.FromToRotation(Vector2.right, direction.Value);
+        if(direction.Value.x >= 0)
         {
+            spriteRenderer.flipX = false;
             if (Weapon != null)
             {
                 Weapon.SpriteRenderer.flipY = false;
@@ -88,6 +102,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
         }
         else
         {
+            spriteRenderer.flipX = true;
             if (Weapon != null)
             {
                 Weapon.SpriteRenderer.flipY = true;
@@ -168,5 +183,23 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
     public void DropItem(InventoryItem item)
     {
         itemSpawner.SpawnItem(item, transform.position);
+    }
+
+    private void SetAnimator(Vector2 moveDirection)
+    {
+        if (moveDirection != Vector2.zero)
+        {
+            animator.SetBool("IsMoving", true);
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+        }
+    }
+
+    protected override void Death()
+    {
+        OnGameOver?.Invoke();
+        base.Death();
     }
 }

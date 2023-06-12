@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa860c29bc6475e408705dc04eb01328, type: 3}
   m_Name: itemList
   m_EditorClassIdentifier: 
-  upgrades: []
-  weapons: []
+  upgrades:
+  - {fileID: 11400000, guid: a9038f0ecf69f6d41a694520a2c0b549, type: 2}
+  - {fileID: 11400000, guid: a06d90c396d671945a9a4dc777f8dce7, type: 2}
+  - {fileID: 11400000, guid: f9981f54b7c3cb54f828bd875d521562, type: 2}
+  weapons:
+  - {fileID: 11400000, guid: 44d77ccf3ba52ea4d9c14bade7d9b40b, type: 2}
+  - {fileID: 11400000, guid: b8cb926131c63e745b5ea4af8620c306, type: 2}

@@ -1565,7 +1565,7 @@ MonoBehaviour:
   - {fileID: 1883597985}
   - {fileID: 266458508}
   - {fileID: 75473217}
-  itemSpawner: {fileID: 1188527698}
+  player: {fileID: 715282694}
   upgradeCollector:
     mode: 0
     unityReference: {fileID: 0}
@@ -2690,7 +2690,7 @@ MonoBehaviour:
   - {fileID: 1045217279}
   - {fileID: 227405309}
   - {fileID: 1155184539}
-  itemSpawner: {fileID: 1188527698}
+  player: {fileID: 715282694}
   weaponCollector:
     mode: 0
     unityReference: {fileID: 715282694}
@@ -3340,7 +3340,7 @@ MonoBehaviour:
   - {fileID: 1823300439}
   - {fileID: 553376181}
   - {fileID: 672425175}
-  itemSpawner: {fileID: 1188527698}
+  player: {fileID: 715282694}
   upgradeCollector:
     mode: 0
     unityReference: {fileID: 0}
@@ -5555,7 +5555,7 @@ MonoBehaviour:
   - {fileID: 1210418618}
   - {fileID: 1664536969}
   - {fileID: 916270100}
-  itemSpawner: {fileID: 1188527698}
+  player: {fileID: 715282694}
   upgradeCollector:
     mode: 0
     unityReference: {fileID: 0}
@@ -7224,7 +7224,7 @@ MonoBehaviour:
   - {fileID: 582879019}
   - {fileID: 218465112}
   - {fileID: 394394575}
-  itemSpawner: {fileID: 1188527698}
+  player: {fileID: 715282694}
   upgradeCollector:
     mode: 0
     unityReference: {fileID: 0}
@@ -8757,7 +8757,11 @@ MonoBehaviour:
     maxHp: 100
     hpRegeneration: 2
   damageResistances:
-    _serializedList: []
+    _serializedList:
+    - Key: 0
+      Value: 20
+    - Key: 1
+      Value: 30
   invulnerabilityTime: 1
   movement:
     moveSpeed: 400
@@ -8772,6 +8776,7 @@ MonoBehaviour:
   upgradeInventory:
     slots: []
   starterWeapon: {fileID: 11400000, guid: 44d77ccf3ba52ea4d9c14bade7d9b40b, type: 2}
+  itemSpawner: {fileID: 11400000, guid: 5b24b3fefa116a144ada5dc9c0c7726c, type: 2}
 --- !u!50 &715282695
 Rigidbody2D:
   serializedVersion: 4
@@ -8816,9 +8821,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715282693}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1292431689}
@@ -12255,35 +12260,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1188527699}
-  - component: {fileID: 1188527698}
   m_Layer: 0
   m_Name: ItemSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1188527698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1188527697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc844e69f0a44a1b87ab3779f8f5440c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupItemPrefab: {fileID: 3637553869484498545, guid: 69ef9811a8189b84cbb62c4e10b48942, type: 3}
-  transform: {fileID: 715282697}
-  upgradesList:
-  - {fileID: 11400000, guid: a06d90c396d671945a9a4dc777f8dce7, type: 2}
-  - {fileID: 11400000, guid: a9038f0ecf69f6d41a694520a2c0b549, type: 2}
-  - {fileID: 11400000, guid: f9981f54b7c3cb54f828bd875d521562, type: 2}
-  weaponsList:
-  - {fileID: 11400000, guid: 44d77ccf3ba52ea4d9c14bade7d9b40b, type: 2}
-  - {fileID: 11400000, guid: b8cb926131c63e745b5ea4af8620c306, type: 2}
+  m_IsActive: 0
 --- !u!4 &1188527699
 Transform:
   m_ObjectHideFlags: 0
@@ -14717,7 +14700,7 @@ MonoBehaviour:
   - {fileID: 358596248}
   - {fileID: 1092746042}
   - {fileID: 463384435}
-  itemSpawner: {fileID: 1188527698}
+  player: {fileID: 715282694}
   upgradeCollector:
     mode: 0
     unityReference: {fileID: 715282694}
@@ -17608,7 +17591,7 @@ MonoBehaviour:
   - {fileID: 755489053}
   - {fileID: 1051439305}
   - {fileID: 1658608102}
-  itemSpawner: {fileID: 1188527698}
+  player: {fileID: 715282694}
   weaponCollector:
     mode: 0
     unityReference: {fileID: 715282694}

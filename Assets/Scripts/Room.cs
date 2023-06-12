@@ -126,7 +126,7 @@ public class Room : MonoBehaviour
     private void AddCollider()
     {
         boxCollider = gameObject.AddComponent<BoxCollider2D>();
-        boxCollider.size = new Vector2(roomSize.x - 3.5f, roomSize.y - 3.5f);
+        boxCollider.size = new Vector2(roomSize.x - 3f, roomSize.y - 3f);
         boxCollider.isTrigger = true;
     }
 

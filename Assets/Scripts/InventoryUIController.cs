@@ -14,12 +14,14 @@ public class InventoryUIController : MonoBehaviour
         _inputController = inputHandler.Value.InputController;
         _inputController.OnInventoryOpen += Activate;
         _inputController.OnInventoryClose += Deactivate;
+        _inputController.OnMenuClose += Deactivate;
     }
 
     private void OnDisable()
     {
         _inputController.OnInventoryOpen -= Activate;
         _inputController.OnInventoryClose -= Deactivate;
+        _inputController.OnMenuClose -= Deactivate;
     }
 
     private void Activate()

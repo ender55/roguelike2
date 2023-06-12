@@ -19,6 +19,8 @@ public class Movement
         }
     }
 
+    public Vector2 MoveDirection => moveDirection;
+
     public event Action OnMoveSpeedChange;
     public event Action OnMove;
 

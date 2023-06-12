@@ -19,7 +19,8 @@ class LerpMovement : Movement
     {
         while (rigidbody2D.position != moveDirection)
         {
-            rigidbody2D.MovePosition(Vector2.Lerp(rigidbody2D.gameObject.transform.position, moveDirection, moveSpeed * Time.deltaTime));
+            rigidbody2D.MovePosition(Vector2.Lerp(rigidbody2D.gameObject.transform.position, 
+                moveDirection, moveSpeed * Time.deltaTime));
             yield return new WaitForEndOfFrame();
         }
     }
