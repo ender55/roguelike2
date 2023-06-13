@@ -287,6 +287,15 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""0293ba40-928a-4981-9d89-07f1e91a51e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -311,6 +320,17 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                     ""action"": ""Close Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ea38aafb-0f9b-4459-93da-d2cdbe6d1956"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -332,6 +352,7 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_CloseInventory = m_UI.FindAction("Close Inventory", throwIfNotFound: true);
         m_UI_CloseMenu = m_UI.FindAction("Close Menu", throwIfNotFound: true);
+        m_UI_Restart = m_UI.FindAction("Restart", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -490,12 +511,14 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
     private IUIActions m_UIActionsCallbackInterface;
     private readonly InputAction m_UI_CloseInventory;
     private readonly InputAction m_UI_CloseMenu;
+    private readonly InputAction m_UI_Restart;
     public struct UIActions
     {
         private @GameInput m_Wrapper;
         public UIActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @CloseInventory => m_Wrapper.m_UI_CloseInventory;
         public InputAction @CloseMenu => m_Wrapper.m_UI_CloseMenu;
+        public InputAction @Restart => m_Wrapper.m_UI_Restart;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -511,6 +534,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @CloseMenu.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseMenu;
                 @CloseMenu.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseMenu;
                 @CloseMenu.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseMenu;
+                @Restart.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRestart;
+                @Restart.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRestart;
+                @Restart.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRestart;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -521,6 +547,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @CloseMenu.started += instance.OnCloseMenu;
                 @CloseMenu.performed += instance.OnCloseMenu;
                 @CloseMenu.canceled += instance.OnCloseMenu;
+                @Restart.started += instance.OnRestart;
+                @Restart.performed += instance.OnRestart;
+                @Restart.canceled += instance.OnRestart;
             }
         }
     }
@@ -541,5 +570,6 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
     {
         void OnCloseInventory(InputAction.CallbackContext context);
         void OnCloseMenu(InputAction.CallbackContext context);
+        void OnRestart(InputAction.CallbackContext context);
     }
 }

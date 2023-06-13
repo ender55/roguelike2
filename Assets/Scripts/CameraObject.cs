@@ -11,7 +11,10 @@ public class CameraObject : MonoBehaviour, IMovable, IDirectable
 
     private void FixedUpdate()
     {
-        direction.SetDirection(target.transform.position);
-        movement.Move(direction.Value);
+        if (target != null)
+        {
+            direction.SetDirection(target.transform.position);
+            movement.Move(direction.Value);
+        }
     }
 }

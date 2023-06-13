@@ -16,6 +16,7 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     public event Action OnInventoryClose;
     public event Action OnMenuOpen;
     public event Action OnMenuClose;
+    public event Action OnRestart;
 
     private void Awake()
     {
@@ -134,5 +135,10 @@ public class InputController : MonoBehaviour, GameInput.IGameplayActions, GameIn
     void GameInput.IUIActions.OnCloseMenu(InputAction.CallbackContext context)
     {
         OnMenuClose?.Invoke();
+    }
+
+    void GameInput.IUIActions.OnRestart(InputAction.CallbackContext context)
+    {
+        OnRestart?.Invoke();
     }
 }

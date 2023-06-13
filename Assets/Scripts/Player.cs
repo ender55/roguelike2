@@ -156,8 +156,8 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
                 _currentSlot = chosenWeaponSlot;
                 _inputController.OnAttack += Weapon.PerformAttack;
                 _currentSlot.OnSlotChanged += UnequipWeapon;
-                if (gameObject.transform.rotation.eulerAngles.z > 90 &&
-                    gameObject.transform.rotation.eulerAngles.z < 270)
+
+                if(direction.Value.x < 0)
                 {
                     Weapon.SpriteRenderer.flipY = true;
                 }
@@ -200,6 +200,7 @@ public class Player : Unit, IUpgradeCollector, IWeaponCollector, IInputHandler, 
     protected override void Death()
     {
         OnGameOver?.Invoke();
+        _inputController.SetActionMap("UI");
         base.Death();
     }
 }

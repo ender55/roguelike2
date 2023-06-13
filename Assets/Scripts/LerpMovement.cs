@@ -17,7 +17,7 @@ class LerpMovement : Movement
     
     private IEnumerator LerpMoveCoroutine(Vector2 moveDirection)
     {
-        while (rigidbody2D.position != moveDirection)
+        while (rigidbody2D != null && rigidbody2D.position != moveDirection)
         {
             rigidbody2D.MovePosition(Vector2.Lerp(rigidbody2D.gameObject.transform.position, 
                 moveDirection, moveSpeed * Time.deltaTime));
