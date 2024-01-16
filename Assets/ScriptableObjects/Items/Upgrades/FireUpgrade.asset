@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c37456f14fa48b8af1ce24869baedb1, type: 3}
+  m_Name: FireUpgrade
+  m_EditorClassIdentifier: 
+  itemInfo: {fileID: 11400000, guid: 9d1a38a687ac7cb42a66b376cb0f6c1a, type: 2}
+  currentUpgradeRarity: 0
+  currentUpgradeLevel: 1
+  maxLevel: 5
+  burningTimeByRarity:
+    _serializedList:
+    - Key: 0
+      Value: 2
+    - Key: 1
+      Value: 4
+    - Key: 2
+      Value: 6
+    - Key: 3
+      Value: 8
+    - Key: 4
+      Value: 10
+  burningDamageByLevel:
+    _serializedList:
+    - Key: 1
+      Value: 1
+    - Key: 2
+      Value: 2
+    - Key: 3
+      Value: 3
+    - Key: 4
+      Value: 4
+    - Key: 5
+      Value: 5
